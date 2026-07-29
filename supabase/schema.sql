@@ -13,6 +13,7 @@ create table if not exists orders (
   delivery_postcode text not null,
   delivery_zone_id text,
   delivery_distance_km numeric,
+  delivery_fee_cents integer not null default 0,
   delivery_slot_id text not null,
   delivery_slot_label text not null,
   age_confirmed boolean not null default false,

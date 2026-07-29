@@ -8,6 +8,7 @@ import { useCartStore } from '@/lib/cart-store';
 import { products, formatPrice } from '@/data/products';
 import { createClient } from '@/lib/supabase-browser';
 import { DELIVERY_TOWNS, distanceFromDepot } from '@/lib/delivery-zone';
+import { computeDeliveryFeeCents } from '@/lib/delivery-fee';
 import type { DeliverySlot } from '@/lib/delivery-slots';
 
 type SavedAddress = {
@@ -110,7 +111,9 @@ export default function CheckoutPage() {
     })
     .filter((r): r is { product: (typeof products)[number]; quantity: number } => r !== null);
 
-  const totalCents = rows.reduce((sum, r) => sum + r.product.priceCents * r.quantity, 0);
+  const subtotalCents = rows.reduce((sum, r) => sum + r.product.priceCents * r.quantity, 0);
+  const deliveryFeeCents = zoneId ? computeDeliveryFeeCents(zoneId, subtotalCents) : null;
+  const totalCents = subtotalCents + (deliveryFeeCents ?? 0);
 
   const canSubmit =
     rows.length > 0 &&
@@ -300,6 +303,20 @@ export default function CheckoutPage() {
                   <span>{formatPrice(r.product.priceCents * r.quantity, locale)}</span>
                 </div>
               ))}
+              <div className="flex justify-between px-3 py-2 text-sm text-ink/60">
+                <span>{t('subtotal')}</span>
+                <span>{formatPrice(subtotalCents, locale)}</span>
+              </div>
+              <div className="flex justify-between px-3 py-2 text-sm text-ink/60">
+                <span>{t('deliveryFee')}</span>
+                <span>
+                  {deliveryFeeCents === null
+                    ? t('selectCityFirst')
+                    : deliveryFeeCents === 0
+                      ? t('free')
+                      : formatPrice(deliveryFeeCents, locale)}
+                </span>
+              </div>
               <div className="flex justify-between px-3 py-2 text-sm font-semibold">
                 <span>{t('total')}</span>
                 <span>{formatPrice(totalCents, locale)}</span>

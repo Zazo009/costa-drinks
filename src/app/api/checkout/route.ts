@@ -5,6 +5,7 @@ import { products } from '@/data/products';
 import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
 import { isSlotStillValid } from '@/lib/delivery-slots';
 import { getTown } from '@/lib/delivery-zone';
+import { computeDeliveryFeeCents } from '@/lib/delivery-fee';
 import { createServiceClient } from '@/lib/supabase-server';
 import { createUserClient } from '@/lib/supabase-server-user';
 
@@ -67,14 +68,20 @@ export async function POST(req: NextRequest) {
   const cityName = town.name[locale];
   const distanceKm = Math.abs(town.offsetKm);
 
-  let amountTotalCents = 0;
+  let subtotalCents = 0;
   for (const item of items) {
     const product = products.find((p) => p.id === item.productId);
     if (!product) {
       return NextResponse.json({ error: 'invalid_product' }, { status: 400 });
     }
-    amountTotalCents += product.priceCents * item.quantity;
+    subtotalCents += product.priceCents * item.quantity;
   }
+
+  const deliveryFeeCents = computeDeliveryFeeCents(delivery.zoneId, subtotalCents);
+  if (deliveryFeeCents === null) {
+    return NextResponse.json({ error: 'out_of_zone' }, { status: 400 });
+  }
+  const amountTotalCents = subtotalCents + deliveryFeeCents;
 
   const origin = req.headers.get('origin') ?? process.env.NEXT_PUBLIC_SITE_URL!;
 
@@ -102,6 +109,7 @@ export async function POST(req: NextRequest) {
         delivery_postcode: delivery.postcode,
         delivery_zone_id: delivery.zoneId,
         delivery_distance_km: distanceKm,
+        delivery_fee_cents: deliveryFeeCents,
         delivery_slot_id: delivery.slotId,
         delivery_slot_label: delivery.slotLabel,
         age_confirmed: ageConfirmed,
@@ -133,6 +141,19 @@ export async function POST(req: NextRequest) {
       },
     };
   });
+
+  if (deliveryFeeCents > 0) {
+    lineItems.push({
+      quantity: 1,
+      price_data: {
+        currency: 'eur',
+        unit_amount: deliveryFeeCents,
+        product_data: {
+          name: locale === 'es' ? 'Gastos de envío' : 'Delivery fee',
+        },
+      },
+    });
+  }
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -170,6 +191,7 @@ export async function POST(req: NextRequest) {
     delivery_postcode: delivery.postcode,
     delivery_zone_id: delivery.zoneId,
     delivery_distance_km: distanceKm,
+    delivery_fee_cents: deliveryFeeCents,
     delivery_slot_id: delivery.slotId,
     delivery_slot_label: delivery.slotLabel,
     age_confirmed: ageConfirmed,
