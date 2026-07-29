@@ -1,0 +1,352 @@
+export type Product = {
+  id: string;
+  slug: string;
+  category: 'wine' | 'beer' | 'spirits' | 'cava' | 'aperitivo';
+  abv: number;
+  priceCents: number;
+  image: string;
+  artColor: string;
+  artLabel: string;
+  bgClass: string;
+  name: { en: string; es: string };
+  description: { en: string; es: string };
+};
+
+export const products: Product[] = [
+  // Vino — vinos tintos, blancos y rosados
+  {
+    id: 'rioja-crianza',
+    slug: 'rioja-crianza',
+    category: 'wine',
+    abv: 13.5,
+    priceCents: 695,
+    image: '/products/rioja-crianza.jpg',
+    artColor: '#6b1f2a',
+    artLabel: 'RIOJA',
+    bgClass: 'bg-rose-50',
+    name: { en: 'CUNE Rioja Crianza D.O., 75cl', es: 'Vino Tinto Crianza D.O. Rioja CUNE, botella 75 cl' },
+    description: {
+      en: 'Classic Tempranillo red crianza from La Rioja, aged in oak.',
+      es: 'Tinto crianza clásico de Tempranillo de La Rioja, criado en roble.',
+    },
+  },
+  {
+    id: 'rueda-blanco',
+    slug: 'rueda-blanco',
+    category: 'wine',
+    abv: 12.5,
+    priceCents: 941,
+    image: '/products/rueda-blanco.jpg',
+    artColor: '#c9a227',
+    artLabel: 'RUEDA',
+    bgClass: 'bg-amber-50',
+    name: { en: 'Marqués de Riscal Rueda White, 75cl', es: 'Vino Blanco Rueda MARQUÉS DE RISCAL, botella 75 cl' },
+    description: {
+      en: 'Crisp, aromatic Verdejo white wine from D.O. Rueda.',
+      es: 'Vino blanco Verdejo fresco y aromático de D.O. Rueda.',
+    },
+  },
+  {
+    id: 'rosado-elcoto',
+    slug: 'rosado-elcoto',
+    category: 'wine',
+    abv: 12.5,
+    priceCents: 420,
+    image: '/products/rosado-elcoto.jpg',
+    artColor: '#d1637a',
+    artLabel: 'EL COTO',
+    bgClass: 'bg-pink-50',
+    name: { en: 'El Coto Rioja Rosé D.O., 75cl', es: 'Vino Rosado D.O. Rioja EL COTO, botella 75 cl' },
+    description: {
+      en: 'Light, fruity rosé from D.O. Rioja.',
+      es: 'Rosado ligero y afrutado de D.O. Rioja.',
+    },
+  },
+  // Cerveza
+  {
+    id: 'san-miguel-pack',
+    slug: 'san-miguel-pack',
+    category: 'beer',
+    abv: 5.4,
+    priceCents: 820,
+    image: '/products/san-miguel.jpg',
+    artColor: '#c9a227',
+    artLabel: 'SAN MIGUEL',
+    bgClass: 'bg-amber-50',
+    name: { en: 'San Miguel — 12x33cl pack', es: 'Cerveza SAN MIGUEL, pack lata 12x33 cl' },
+    description: {
+      en: 'Classic Spanish lager, pack of 12x330ml cans.',
+      es: 'Cerveza rubia clásica española, pack de 12x330ml en lata.',
+    },
+  },
+  {
+    id: 'mahou-5-estrellas',
+    slug: 'mahou-5-estrellas',
+    category: 'beer',
+    abv: 5.5,
+    priceCents: 1035,
+    image: '/products/mahou-5-estrellas.jpg',
+    artColor: '#1f7a3d',
+    artLabel: 'MAHOU',
+    bgClass: 'bg-green-50',
+    name: { en: 'Mahou 5 Estrellas — 12x33cl pack', es: 'Cerveza MAHOU 5 Estrellas, pack lata 12x33 cl' },
+    description: {
+      en: 'Madrid\'s iconic lager, pack of 12x330ml cans.',
+      es: 'La cerveza icónica de Madrid, pack de 12x330ml en lata.',
+    },
+  },
+  {
+    id: 'alhambra-reserva-1925',
+    slug: 'alhambra-reserva-1925',
+    category: 'beer',
+    abv: 6.4,
+    priceCents: 1519,
+    image: '/products/alhambra-reserva.jpg',
+    artColor: '#8a1f2b',
+    artLabel: 'ALHAMBRA',
+    bgClass: 'bg-red-50',
+    name: { en: 'Alhambra Reserva 1925 — 12x33cl pack', es: 'Cerveza Reserva 1925 ALHAMBRA, pack botellín 12x33 cl' },
+    description: {
+      en: 'Premium Andalusian lager, pack of 12x330ml bottles.',
+      es: 'Cerveza premium andaluza, pack de 12x330ml en botellín.',
+    },
+  },
+  {
+    id: 'mahou-clasica',
+    slug: 'mahou-clasica',
+    category: 'beer',
+    abv: 4.8,
+    priceCents: 910,
+    image: '/products/mahou-clasica.jpg',
+    artColor: '#c9302c',
+    artLabel: 'MAHOU',
+    bgClass: 'bg-red-50',
+    name: { en: 'Mahou Clásica — 12x33cl pack', es: 'Cerveza MAHOU Clásica, pack lata 12x33 cl' },
+    description: {
+      en: 'Smooth, easy-drinking lager, pack of 12x330ml cans.',
+      es: 'Cerveza suave y fácil de beber, pack de 12x330ml en lata.',
+    },
+  },
+  // Cava, champán y sidra
+  {
+    id: 'freixenet-carta-nevada',
+    slug: 'freixenet-carta-nevada',
+    category: 'cava',
+    abv: 11.5,
+    priceCents: 745,
+    image: '/products/freixenet.jpg',
+    artColor: '#c9a227',
+    artLabel: 'FREIXENET',
+    bgClass: 'bg-amber-50',
+    name: { en: 'Freixenet Carta Nevada Brut, 75cl', es: 'Cava Brut FREIXENET Carta Nevada, botella 75 cl' },
+    description: {
+      en: 'Classic Spanish cava, brut style, 750ml.',
+      es: 'Cava español clásico, estilo brut, 750ml.',
+    },
+  },
+  {
+    id: 'codorniu-anna',
+    slug: 'codorniu-anna',
+    category: 'cava',
+    abv: 11.5,
+    priceCents: 995,
+    image: '/products/codorniu.jpg',
+    artColor: '#0d3b28',
+    artLabel: 'CODORNÍU',
+    bgClass: 'bg-emerald-50',
+    name: { en: 'Codorníu Anna Brut Nature, 75cl', es: 'Cava Brut Nature CODORNIU Anna, botella 75 cl' },
+    description: {
+      en: 'Elegant brut nature cava, 750ml.',
+      es: 'Cava brut nature elegante, 750ml.',
+    },
+  },
+  {
+    id: 'moet-chandon',
+    slug: 'moet-chandon',
+    category: 'cava',
+    abv: 12,
+    priceCents: 4495,
+    image: '/products/moet.jpg',
+    artColor: '#a3651c',
+    artLabel: 'MOËT',
+    bgClass: 'bg-amber-50',
+    name: { en: 'Moët & Chandon Brut Champagne, 75cl', es: 'Champagne Brut MOET&CHANDON, botella 75 cl' },
+    description: {
+      en: 'Iconic French champagne, brut, 750ml.',
+      es: 'Champagne francés icónico, brut, 750ml.',
+    },
+  },
+  {
+    id: 'sidra-saizar',
+    slug: 'sidra-saizar',
+    category: 'cava',
+    abv: 5.3,
+    priceCents: 285,
+    image: '/products/sidra-saizar.jpg',
+    artColor: '#8a9a3a',
+    artLabel: 'SAIZAR',
+    bgClass: 'bg-lime-50',
+    name: { en: 'Saizar Natural Cider (Gipuzkoa), 75cl', es: 'Sidra natural de Gipuzkoa SAIZAR, botella 75 cl' },
+    description: {
+      en: 'Traditional Basque natural cider, 750ml.',
+      es: 'Sidra natural tradicional vasca, 750ml.',
+    },
+  },
+  // Licor
+  {
+    id: 'gin-mare',
+    slug: 'gin-mare',
+    category: 'spirits',
+    abv: 42.7,
+    priceCents: 3495,
+    image: '/products/gin-mare.jpg',
+    artColor: '#0e5b52',
+    artLabel: 'GIN MARE',
+    bgClass: 'bg-teal-50',
+    name: { en: 'Gin Mare, 70cl', es: 'Gin Mare, botella 70 cl' },
+    description: {
+      en: 'Mediterranean gin distilled on the Costa Dorada, 700ml.',
+      es: 'Ginebra mediterránea destilada en la Costa Dorada, 700ml.',
+    },
+  },
+  {
+    id: 'tanqueray',
+    slug: 'tanqueray',
+    category: 'spirits',
+    abv: 43.1,
+    priceCents: 1349,
+    image: '/products/tanqueray.jpg',
+    artColor: '#0a3d2e',
+    artLabel: 'TANQUERAY',
+    bgClass: 'bg-emerald-50',
+    name: { en: 'Tanqueray London Dry Gin, 70cl', es: 'Ginebra Tanqueray, botella 70 cl' },
+    description: {
+      en: 'Classic London dry gin, 700ml.',
+      es: 'Ginebra London dry clásica, 700ml.',
+    },
+  },
+  {
+    id: 'johnnie-walker',
+    slug: 'johnnie-walker',
+    category: 'spirits',
+    abv: 40,
+    priceCents: 1399,
+    image: '/products/johnnie-walker.jpg',
+    artColor: '#8a1f2b',
+    artLabel: 'J. WALKER',
+    bgClass: 'bg-red-50',
+    name: { en: 'Johnnie Walker Whisky, 70cl', es: 'Whisky Johnnie Walker, botella 70 cl' },
+    description: {
+      en: 'Blended Scotch whisky, smooth and smoky, 700ml.',
+      es: 'Whisky escocés de mezcla, suave y ahumado, 700ml.',
+    },
+  },
+  {
+    id: 'ron-cacique',
+    slug: 'ron-cacique',
+    category: 'spirits',
+    abv: 37.5,
+    priceCents: 1349,
+    image: '/products/cacique.jpg',
+    artColor: '#a3651c',
+    artLabel: 'CACIQUE',
+    bgClass: 'bg-amber-50',
+    name: { en: 'Cacique Rum, 70cl', es: 'Ron Cacique, botella 70 cl' },
+    description: {
+      en: 'Venezuelan gold rum, smooth and slightly sweet, 700ml.',
+      es: 'Ron dorado venezolano, suave y ligeramente dulce, 700ml.',
+    },
+  },
+  {
+    id: 'smirnoff',
+    slug: 'smirnoff',
+    category: 'spirits',
+    abv: 37.5,
+    priceCents: 999,
+    image: '/products/smirnoff.jpg',
+    artColor: '#1c3f6e',
+    artLabel: 'SMIRNOFF',
+    bgClass: 'bg-sky-50',
+    name: { en: 'Smirnoff Vodka, 70cl', es: 'Vodka Smirnoff, botella 70 cl' },
+    description: {
+      en: 'Triple-distilled vodka, clean and neutral, 700ml.',
+      es: 'Vodka triple destilado, limpio y neutro, 700ml.',
+    },
+  },
+  {
+    id: 'gordons',
+    slug: 'gordons',
+    category: 'spirits',
+    abv: 37.5,
+    priceCents: 949,
+    image: '/products/gordons.jpg',
+    artColor: '#0d3b28',
+    artLabel: "GORDON'S",
+    bgClass: 'bg-lime-50',
+    name: { en: "Gordon's London Dry Gin, 70cl", es: 'Ginebra London Dry Gordon\'s, botella 70 cl' },
+    description: {
+      en: "The world's best-selling London dry gin, 700ml.",
+      es: 'La ginebra London dry más vendida del mundo, 700ml.',
+    },
+  },
+  {
+    id: 'baileys',
+    slug: 'baileys',
+    category: 'spirits',
+    abv: 17,
+    priceCents: 1299,
+    image: '/products/baileys.jpg',
+    artColor: '#5a3a26',
+    artLabel: "BAILEY'S",
+    bgClass: 'bg-orange-50',
+    name: { en: 'Baileys Irish Cream, 70cl', es: "Licor Bailey's, botella 70 cl" },
+    description: {
+      en: 'Irish cream liqueur made with fresh cream and whiskey, 700ml.',
+      es: 'Licor de crema irlandesa con nata fresca y whiskey, 700ml.',
+    },
+  },
+  // Finos, dulces y aperitivos
+  {
+    id: 'martini-rojo',
+    slug: 'martini-rojo',
+    category: 'aperitivo',
+    abv: 15,
+    priceCents: 999,
+    image: '/products/martini-rojo.jpg',
+    artColor: '#8a1f2b',
+    artLabel: 'MARTINI',
+    bgClass: 'bg-red-50',
+    name: { en: 'Martini Rosso Vermouth, 1L', es: 'Vermouth Rojo MARTINI, botella 1 litro' },
+    description: {
+      en: 'Classic sweet red vermouth, 1000ml.',
+      es: 'Vermouth rojo dulce clásico, 1000ml.',
+    },
+  },
+  {
+    id: 'aperol',
+    slug: 'aperol',
+    category: 'aperitivo',
+    abv: 11,
+    priceCents: 1505,
+    image: '/products/aperol.jpg',
+    artColor: '#e2731c',
+    artLabel: 'APEROL',
+    bgClass: 'bg-orange-50',
+    name: { en: 'Aperol, 70cl', es: 'Aperitivo APEROL, botella 70 cl' },
+    description: {
+      en: 'Italian bittersweet aperitif, perfect for spritz, 700ml.',
+      es: 'Aperitivo italiano agridulce, perfecto para spritz, 700ml.',
+    },
+  },
+];
+
+export function getProduct(slug: string) {
+  return products.find((p) => p.slug === slug);
+}
+
+export function formatPrice(cents: number, locale: string) {
+  return new Intl.NumberFormat(locale === 'es' ? 'es-ES' : 'en-GB', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(cents / 100);
+}

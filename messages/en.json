@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "title": "Costa Drinks — Alcohol Home Delivery in Costa del Sol",
+    "description": "Order wine, beer and spirits delivered to your door in Marbella, Estepona and Benahavís. Sales until 22:00."
+  },
+  "nav": {
+    "shop": "Shop",
+    "cart": "Cart"
+  },
+  "ageGate": {
+    "heading": "Age Verification",
+    "body": "You must be 18 or older to purchase alcohol in Spain. ID will be required at delivery.",
+    "confirm": "I am 18 or older",
+    "decline": "I am under 18",
+    "declineMessage": "Sorry, you must be of legal drinking age to use this site."
+  },
+  "saleWindow": {
+    "openTitle": "Open for orders",
+    "openBody": "You can order now. By law, home delivery of alcohol in Andalucía is only permitted between 08:00 and 22:00.",
+    "closedTitle": "Closed by law until 08:00",
+    "closedBody": "Home delivery of alcohol is not permitted between 22:00 and 08:00 (Ley 4/1997, Andalucía). Please try again in the morning."
+  },
+  "hero": {
+    "title": "Alcohol delivery in Costa del Sol",
+    "subtitle": "Marbella · Estepona · Benahavís",
+    "cta": "Order now",
+    "ctaDisabled": "Orders closed",
+    "badgeDelivery": "Same-day delivery",
+    "badgeLegal": "100% legally compliant",
+    "badgeSelection": "Wine, beer & spirits"
+  },
+  "products": {
+    "title": "Shop",
+    "subtitle": "Browse our selection — delivered to your door within the hour.",
+    "addToCart": "Add to cart",
+    "added": "Added {name} to cart",
+    "abv": "ABV",
+    "all": "All",
+    "wine": "Wine",
+    "beer": "Beer",
+    "cava": "Cava & Cider",
+    "spirits": "Spirits",
+    "aperitivo": "Aperitifs"
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty.",
+    "emptyBody": "Looks like you haven't added anything yet.",
+    "continueShopping": "Continue shopping",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "subtotalNote": "Delivery fee calculated at checkout.",
+    "checkout": "Go to checkout"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "step1": "Contact",
+    "step2": "Delivery",
+    "step3": "Review & pay",
+    "contact": "Contact details",
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "delivery": "Delivery address",
+    "address": "Street address",
+    "city": "City",
+    "postcode": "Postcode",
+    "slot": "Delivery time",
+    "slotHelp": "Same-day delivery only, between 08:00 and 22:00 as permitted by law.",
+    "noSlots": "No delivery slots are available right now — orders are closed until 08:00.",
+    "ageConfirm": "I confirm I am 18 or older and understand ID will be checked at delivery.",
+    "idNotice": "You must show valid photo ID matching the order name when your delivery arrives. Orders will not be handed over without it.",
+    "pay": "Pay now",
+    "processing": "Processing…",
+    "summary": "Order summary",
+    "total": "Total",
+    "errorClosed": "Sorry, orders are closed right now (outside legal hours). Please try again between 08:00 and 22:00.",
+    "errorGeneric": "Something went wrong — please try again."
+  },
+  "orderStatus": {
+    "successTitle": "Order confirmed",
+    "successBody": "Thank you! Your order is confirmed. Please have valid photo ID ready for delivery.",
+    "cancelTitle": "Payment cancelled",
+    "cancelBody": "Your payment was not completed. Your cart has been kept, you can try again.",
+    "backToShop": "Back to shop"
+  },
+  "footer": {
+    "legal": "Sales to persons 18+ only. ID required at delivery. Service available 08:00–22:00, per Andalucía's Ley 4/1997."
+  }
+}

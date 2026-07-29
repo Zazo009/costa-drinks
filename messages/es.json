@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "title": "Costa Drinks — Entrega de alcohol a domicilio en Costa del Sol",
+    "description": "Pide vino, cerveza y licores con entrega a domicilio en Marbella, Estepona y Benahavís. Venta hasta las 22:00."
+  },
+  "nav": {
+    "shop": "Tienda",
+    "cart": "Carrito"
+  },
+  "ageGate": {
+    "heading": "Verificación de edad",
+    "body": "Debes tener 18 años o más para comprar bebidas alcohólicas en España. Se requerirá identificación en el momento de la entrega.",
+    "confirm": "Tengo 18 años o más",
+    "decline": "Tengo menos de 18 años",
+    "declineMessage": "Lo sentimos, debes ser mayor de edad para usar este sitio."
+  },
+  "saleWindow": {
+    "openTitle": "Abierto para pedidos",
+    "openBody": "Puedes pedir ahora. Por ley, la venta de alcohol a domicilio en Andalucía está permitida solo entre las 08:00 y las 22:00.",
+    "closedTitle": "Cerrado por ley hasta las 08:00",
+    "closedBody": "La venta de alcohol a domicilio no está permitida entre las 22:00 y las 08:00 (Ley 4/1997, Andalucía). Vuelve a intentarlo por la mañana."
+  },
+  "hero": {
+    "title": "Alcohol a domicilio en la Costa del Sol",
+    "subtitle": "Marbella · Estepona · Benahavís",
+    "cta": "Pedir ahora",
+    "ctaDisabled": "Pedidos cerrados",
+    "badgeDelivery": "Entrega el mismo día",
+    "badgeLegal": "100% conforme a la ley",
+    "badgeSelection": "Vino, cerveza y licores"
+  },
+  "products": {
+    "title": "Tienda",
+    "subtitle": "Explora nuestra selección — entrega a domicilio en menos de una hora.",
+    "addToCart": "Añadir al carrito",
+    "added": "{name} añadido al carrito",
+    "abv": "Graduación",
+    "all": "Todo",
+    "wine": "Vino",
+    "beer": "Cerveza",
+    "cava": "Cava y sidra",
+    "spirits": "Licores",
+    "aperitivo": "Aperitivos"
+  },
+  "cart": {
+    "title": "Tu carrito",
+    "empty": "Tu carrito está vacío.",
+    "emptyBody": "Parece que aún no has añadido nada.",
+    "continueShopping": "Seguir comprando",
+    "remove": "Eliminar",
+    "subtotal": "Subtotal",
+    "subtotalNote": "El coste de entrega se calcula al pagar.",
+    "checkout": "Ir a pagar"
+  },
+  "checkout": {
+    "title": "Pago",
+    "step1": "Contacto",
+    "step2": "Entrega",
+    "step3": "Revisar y pagar",
+    "contact": "Datos de contacto",
+    "name": "Nombre completo",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "delivery": "Dirección de entrega",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "postcode": "Código postal",
+    "slot": "Hora de entrega",
+    "slotHelp": "Entrega solo el mismo día, entre las 08:00 y las 22:00 según lo permitido por ley.",
+    "noSlots": "No hay horarios de entrega disponibles ahora mismo — los pedidos están cerrados hasta las 08:00.",
+    "ageConfirm": "Confirmo que tengo 18 años o más y entiendo que se verificará mi identificación en la entrega.",
+    "idNotice": "Debes mostrar un documento de identidad válido que coincida con el nombre del pedido cuando llegue la entrega. No se entregarán pedidos sin él.",
+    "pay": "Pagar ahora",
+    "processing": "Procesando…",
+    "summary": "Resumen del pedido",
+    "total": "Total",
+    "errorClosed": "Lo sentimos, los pedidos están cerrados ahora mismo (fuera del horario legal). Inténtalo de nuevo entre las 08:00 y las 22:00.",
+    "errorGeneric": "Algo salió mal — inténtalo de nuevo."
+  },
+  "orderStatus": {
+    "successTitle": "Pedido confirmado",
+    "successBody": "¡Gracias! Tu pedido está confirmado. Ten a mano tu identificación válida para la entrega.",
+    "cancelTitle": "Pago cancelado",
+    "cancelBody": "Tu pago no se completó. Tu carrito se ha conservado, puedes intentarlo de nuevo.",
+    "backToShop": "Volver a la tienda"
+  },
+  "footer": {
+    "legal": "Venta solo a mayores de 18 años. Se requiere identificación en la entrega. Servicio disponible de 08:00 a 22:00, según la Ley 4/1997 de Andalucía."
+  }
+}
