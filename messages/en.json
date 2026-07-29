@@ -5,7 +5,9 @@
   },
   "nav": {
     "shop": "Shop",
-    "cart": "Cart"
+    "cart": "Cart",
+    "account": "Account",
+    "login": "Log in"
   },
   "ageGate": {
     "heading": "Age Verification",
@@ -40,7 +42,9 @@
     "beer": "Beer",
     "cava": "Cava & Cider",
     "spirits": "Spirits",
-    "aperitivo": "Aperitifs"
+    "aperitivo": "Aperitifs",
+    "favorite": "Save to favourites",
+    "loginToFavorite": "Log in to save favourites"
   },
   "cart": {
     "title": "Your cart",
@@ -84,7 +88,43 @@
     "cancelBody": "Your payment was not completed. Your cart has been kept, you can try again.",
     "backToShop": "Back to shop"
   },
+  "auth": {
+    "loginTitle": "Log in",
+    "signupTitle": "Create account",
+    "name": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "loginCta": "Log in",
+    "signupCta": "Create account",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "errorInvalid": "Incorrect email or password.",
+    "errorExists": "An account with this email already exists.",
+    "errorGeneric": "Something went wrong — please try again.",
+    "confirmEmail": "Check your inbox to confirm your email address before logging in.",
+    "logout": "Log out"
+  },
+  "account": {
+    "ordersTitle": "Order history",
+    "ordersSubtitle": "Track past orders and reorder",
+    "favoritesTitle": "Favourites",
+    "favoritesSubtitle": "Products you've saved",
+    "noOrders": "You haven't placed any orders yet.",
+    "noFavorites": "You haven't saved any favourites yet.",
+    "reorder": "Reorder",
+    "status_pending": "Processing",
+    "status_paid": "Confirmed",
+    "status_cancelled": "Cancelled"
+  },
   "footer": {
-    "legal": "Sales to persons 18+ only. ID required at delivery. Service available 08:00–22:00, per Andalucía's Ley 4/1997."
+    "legal": "Sales to persons 18+ only. ID required at delivery. Service available 08:00–22:00, per Andalucía's Ley 4/1997.",
+    "company": "Ferrua Spain Holding SL — CIF B06812630",
+    "address": "Calle Camilo José Cela, 12 (Ed. Segovia), 29602 Marbella, Málaga, Spain",
+    "legalNotice": "Legal Notice",
+    "privacyPolicy": "Privacy Policy",
+    "cookiePolicy": "Cookie Policy",
+    "terms": "Terms & Conditions",
+    "returnsPolicy": "Returns Policy",
+    "contact": "Contact"
   }
 }

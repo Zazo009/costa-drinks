@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import AddToCartButton from '@/components/AddToCartButton';
 import ProductThumbnail from '@/components/ProductThumbnail';
+import FavoriteButton from '@/components/FavoriteButton';
 import { products, formatPrice, type Product } from '@/data/products';
 
 const CATEGORIES: Array<Product['category'] | 'all'> = ['all', 'wine', 'beer', 'cava', 'spirits', 'aperitivo'];
@@ -20,12 +21,12 @@ export default function ProductGrid() {
 
   return (
     <>
-      <div className="mb-8 flex gap-2">
+      <div className="-mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden">
         {CATEGORIES.map((c) => (
           <button
             key={c}
             onClick={() => setCategory(c)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+            className={`flex-shrink-0 whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
               category === c
                 ? 'bg-gray-900 text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -44,7 +45,7 @@ export default function ProductGrid() {
               key={product.id}
               className="group flex flex-col rounded-xl border border-gray-100 p-4 shadow-sm transition-shadow hover:shadow-md"
             >
-              <div className="mb-3">
+              <div className="relative mb-3">
                 <ProductThumbnail
                   category={product.category}
                   image={product.image}
@@ -53,6 +54,9 @@ export default function ProductGrid() {
                   artColor={product.artColor}
                   artLabel={product.artLabel}
                 />
+                <div className="absolute right-2 top-2">
+                  <FavoriteButton productId={product.id} />
+                </div>
               </div>
               <h2 className="font-semibold text-gray-900">{name}</h2>
               <p className="mb-2 text-sm text-gray-500">

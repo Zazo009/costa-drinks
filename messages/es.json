@@ -5,7 +5,9 @@
   },
   "nav": {
     "shop": "Tienda",
-    "cart": "Carrito"
+    "cart": "Carrito",
+    "account": "Mi cuenta",
+    "login": "Iniciar sesión"
   },
   "ageGate": {
     "heading": "Verificación de edad",
@@ -40,7 +42,9 @@
     "beer": "Cerveza",
     "cava": "Cava y sidra",
     "spirits": "Licores",
-    "aperitivo": "Aperitivos"
+    "aperitivo": "Aperitivos",
+    "favorite": "Guardar en favoritos",
+    "loginToFavorite": "Inicia sesión para guardar favoritos"
   },
   "cart": {
     "title": "Tu carrito",
@@ -84,7 +88,43 @@
     "cancelBody": "Tu pago no se completó. Tu carrito se ha conservado, puedes intentarlo de nuevo.",
     "backToShop": "Volver a la tienda"
   },
+  "auth": {
+    "loginTitle": "Iniciar sesión",
+    "signupTitle": "Crear cuenta",
+    "name": "Nombre completo",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "loginCta": "Iniciar sesión",
+    "signupCta": "Crear cuenta",
+    "noAccount": "¿No tienes cuenta?",
+    "haveAccount": "¿Ya tienes cuenta?",
+    "errorInvalid": "Correo electrónico o contraseña incorrectos.",
+    "errorExists": "Ya existe una cuenta con este correo electrónico.",
+    "errorGeneric": "Algo salió mal — inténtalo de nuevo.",
+    "confirmEmail": "Revisa tu correo para confirmar tu dirección antes de iniciar sesión.",
+    "logout": "Cerrar sesión"
+  },
+  "account": {
+    "ordersTitle": "Historial de pedidos",
+    "ordersSubtitle": "Consulta pedidos anteriores y vuelve a pedir",
+    "favoritesTitle": "Favoritos",
+    "favoritesSubtitle": "Productos que has guardado",
+    "noOrders": "Todavía no has realizado ningún pedido.",
+    "noFavorites": "Todavía no has guardado ningún favorito.",
+    "reorder": "Volver a pedir",
+    "status_pending": "En proceso",
+    "status_paid": "Confirmado",
+    "status_cancelled": "Cancelado"
+  },
   "footer": {
-    "legal": "Venta solo a mayores de 18 años. Se requiere identificación en la entrega. Servicio disponible de 08:00 a 22:00, según la Ley 4/1997 de Andalucía."
+    "legal": "Venta solo a mayores de 18 años. Se requiere identificación en la entrega. Servicio disponible de 08:00 a 22:00, según la Ley 4/1997 de Andalucía.",
+    "company": "Ferrua Spain Holding SL — CIF B06812630",
+    "address": "Calle Camilo José Cela, 12 (Ed. Segovia), 29602 Marbella, Málaga, España",
+    "legalNotice": "Aviso Legal",
+    "privacyPolicy": "Política de Privacidad",
+    "cookiePolicy": "Política de Cookies",
+    "terms": "Términos y Condiciones",
+    "returnsPolicy": "Política de Devoluciones",
+    "contact": "Contacto"
   }
 }

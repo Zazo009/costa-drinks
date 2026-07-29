@@ -1,5 +1,6 @@
 create table if not exists orders (
   id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete set null,
   stripe_session_id text unique not null,
   status text not null default 'pending', -- pending | paid | cancelled
   locale text not null,
@@ -21,7 +22,29 @@ create table if not exists orders (
 
 create index if not exists orders_status_idx on orders (status);
 create index if not exists orders_created_at_idx on orders (created_at desc);
+create index if not exists orders_user_id_idx on orders (user_id);
 
--- Row Level Security: only the service role (server) may read/write orders.
--- No anon/public access — orders are never queried directly from the browser.
+-- Row Level Security: the service role (server) can always read/write.
+-- Signed-in users may only read their own orders — never write directly.
 alter table orders enable row level security;
+
+drop policy if exists "Users can read own orders" on orders;
+create policy "Users can read own orders"
+  on orders for select
+  using (auth.uid() = user_id);
+
+create table if not exists favorites (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  product_id text not null,
+  created_at timestamptz not null default now(),
+  unique (user_id, product_id)
+);
+
+alter table favorites enable row level security;
+
+drop policy if exists "Users manage own favorites" on favorites;
+create policy "Users manage own favorites"
+  on favorites for all
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);

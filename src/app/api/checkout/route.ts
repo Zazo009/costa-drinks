@@ -5,6 +5,7 @@ import { products } from '@/data/products';
 import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
 import { isSlotStillValid } from '@/lib/delivery-slots';
 import { createServiceClient } from '@/lib/supabase-server';
+import { createUserClient } from '@/lib/supabase-server-user';
 
 const checkoutSchema = z.object({
   locale: z.enum(['en', 'es']),
@@ -101,8 +102,14 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  const userClient = await createUserClient();
+  const {
+    data: { user },
+  } = await userClient.auth.getUser();
+
   const supabase = createServiceClient();
   await supabase.from('orders').insert({
+    user_id: user?.id ?? null,
     stripe_session_id: session.id,
     status: 'pending',
     locale,

@@ -3,6 +3,7 @@ import AgeGate from '@/components/AgeGate';
 import SiteHeader from '@/components/SiteHeader';
 import SaleWindowBanner from '@/components/SaleWindowBanner';
 import ProductGrid from '@/components/ProductGrid';
+import SiteFooter from '@/components/SiteFooter';
 
 export default async function ProductsPage() {
   const t = await getTranslations('products');
@@ -22,6 +23,7 @@ export default async function ProductsPage() {
 
         <ProductGrid />
       </section>
+      <SiteFooter />
     </main>
   );
 }

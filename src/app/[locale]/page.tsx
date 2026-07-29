@@ -3,6 +3,7 @@ import { Truck, ShieldCheck, GlassWater } from 'lucide-react';
 import AgeGate from '@/components/AgeGate';
 import SaleWindowBanner from '@/components/SaleWindowBanner';
 import SiteHeader from '@/components/SiteHeader';
+import SiteFooter from '@/components/SiteFooter';
 import { Link } from '@/i18n/navigation';
 import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
 
@@ -63,9 +64,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <footer className="border-t border-gray-100 px-6 py-6 text-center text-xs text-gray-400">
-        {t('footer.legal')}
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
