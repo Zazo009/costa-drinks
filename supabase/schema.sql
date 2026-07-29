@@ -48,3 +48,24 @@ create policy "Users manage own favorites"
   on favorites for all
   using (auth.uid() = user_id)
   with check (auth.uid() = user_id);
+
+create table if not exists addresses (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  label text not null,
+  address text not null,
+  city text not null,
+  postcode text not null,
+  is_default boolean not null default false,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists addresses_user_id_idx on addresses (user_id);
+
+alter table addresses enable row level security;
+
+drop policy if exists "Users manage own addresses" on addresses;
+create policy "Users manage own addresses"
+  on addresses for all
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);

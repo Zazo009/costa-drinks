@@ -2,11 +2,21 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { Loader2, ShieldCheck } from 'lucide-react';
+import { Loader2, ShieldCheck, MapPin } from 'lucide-react';
 import SiteHeader from '@/components/SiteHeader';
 import { useCartStore } from '@/lib/cart-store';
 import { products, formatPrice } from '@/data/products';
+import { createClient } from '@/lib/supabase-browser';
 import type { DeliverySlot } from '@/lib/delivery-slots';
+
+type SavedAddress = {
+  id: string;
+  label: string;
+  address: string;
+  city: string;
+  postcode: string;
+  is_default: boolean;
+};
 
 function Section({
   step,
@@ -49,6 +59,8 @@ export default function CheckoutPage() {
   const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>([]);
+  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/delivery-slots')
@@ -57,7 +69,36 @@ export default function CheckoutPage() {
         setSlots(data.slots);
         if (data.slots.length > 0) setSlotId(data.slots[0].id);
       });
+
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => {
+      if (!data.user) return;
+      setName((data.user.user_metadata?.full_name as string) ?? '');
+      setPhone((data.user.user_metadata?.phone as string) ?? '');
+      setEmail(data.user.email ?? '');
+    });
+
+    fetch('/api/addresses')
+      .then((r) => r.json())
+      .then((data) => {
+        const addresses: SavedAddress[] = data.addresses ?? [];
+        setSavedAddresses(addresses);
+        const def = addresses.find((a) => a.is_default) ?? addresses[0];
+        if (def) {
+          setSelectedAddressId(def.id);
+          setAddress(def.address);
+          setCity(def.city);
+          setPostcode(def.postcode);
+        }
+      });
   }, []);
+
+  function applyAddress(a: SavedAddress) {
+    setSelectedAddressId(a.id);
+    setAddress(a.address);
+    setCity(a.city);
+    setPostcode(a.postcode);
+  }
 
   const rows = items
     .map((item) => {
@@ -153,10 +194,32 @@ export default function CheckoutPage() {
 
           <Section step={2} title={t('delivery')}>
             <div className="space-y-3">
+              {savedAddresses.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {savedAddresses.map((a) => (
+                    <button
+                      key={a.id}
+                      type="button"
+                      onClick={() => applyAddress(a)}
+                      className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
+                        selectedAddressId === a.id
+                          ? 'bg-ink text-white'
+                          : 'bg-ink/5 text-ink/60 hover:bg-ink/10'
+                      }`}
+                    >
+                      <MapPin size={12} />
+                      {a.label}
+                    </button>
+                  ))}
+                </div>
+              )}
               <input
                 placeholder={t('address')}
                 value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                  setSelectedAddressId(null);
+                }}
                 className={inputClass}
               />
               <div className="flex gap-3">

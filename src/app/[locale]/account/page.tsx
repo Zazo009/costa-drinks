@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { User, Package, Heart } from 'lucide-react';
+import { User, Package, Heart, MapPin, Settings } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import SiteHeader from '@/components/SiteHeader';
 import LogoutButton from '@/components/LogoutButton';
@@ -55,6 +55,26 @@ export default async function AccountPage() {
             <div>
               <p className="font-semibold text-ink">{t('favoritesTitle')}</p>
               <p className="text-sm text-ink/50">{t('favoritesSubtitle')}</p>
+            </div>
+          </Link>
+          <Link
+            href="/account/addresses"
+            className="flex items-center gap-3 rounded-xl border border-ink/[0.06] p-5 shadow-sm transition-shadow hover:shadow-md"
+          >
+            <MapPin className="text-ink/35" size={22} />
+            <div>
+              <p className="font-semibold text-ink">{t('addressesTitle')}</p>
+              <p className="text-sm text-ink/50">{t('addressesSubtitle')}</p>
+            </div>
+          </Link>
+          <Link
+            href="/account/profile"
+            className="flex items-center gap-3 rounded-xl border border-ink/[0.06] p-5 shadow-sm transition-shadow hover:shadow-md"
+          >
+            <Settings className="text-ink/35" size={22} />
+            <div>
+              <p className="font-semibold text-ink">{t('profileTitle')}</p>
+              <p className="text-sm text-ink/50">{t('profileSubtitle')}</p>
             </div>
           </Link>
         </div>
