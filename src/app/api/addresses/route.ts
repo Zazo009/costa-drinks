@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createUserClient } from '@/lib/supabase-server-user';
+import { getTown } from '@/lib/delivery-zone';
 
 const addressSchema = z.object({
   label: z.string().min(1).max(40),
   address: z.string().min(1),
-  city: z.string().min(1),
+  zoneId: z.string().min(1),
   postcode: z.string().min(1),
   isDefault: z.boolean().optional(),
+  locale: z.enum(['en', 'es']).default('es'),
 });
 
 export async function GET() {
@@ -34,7 +36,10 @@ export async function POST(req: NextRequest) {
 
   const parsed = addressSchema.safeParse(await req.json());
   if (!parsed.success) return NextResponse.json({ error: 'invalid_request' }, { status: 400 });
-  const { label, address, city, postcode, isDefault } = parsed.data;
+  const { label, address, zoneId, postcode, isDefault, locale } = parsed.data;
+
+  const town = getTown(zoneId);
+  if (!town) return NextResponse.json({ error: 'out_of_zone' }, { status: 400 });
 
   if (isDefault) {
     await supabase.from('addresses').update({ is_default: false }).eq('user_id', user.id);
@@ -46,7 +51,8 @@ export async function POST(req: NextRequest) {
       user_id: user.id,
       label,
       address,
-      city,
+      city: town.name[locale],
+      zone_id: zoneId,
       postcode,
       is_default: !!isDefault,
     })

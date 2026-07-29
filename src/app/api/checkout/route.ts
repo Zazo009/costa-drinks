@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { products } from '@/data/products';
 import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
 import { isSlotStillValid } from '@/lib/delivery-slots';
+import { getTown } from '@/lib/delivery-zone';
 import { createServiceClient } from '@/lib/supabase-server';
 import { createUserClient } from '@/lib/supabase-server-user';
 
@@ -24,7 +25,7 @@ const checkoutSchema = z.object({
   }),
   delivery: z.object({
     address: z.string().min(1),
-    city: z.string().min(1),
+    zoneId: z.string().min(1),
     postcode: z.string().min(1),
     slotId: z.string(),
     slotLabel: z.string(),
@@ -59,6 +60,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'slot_no_longer_available' }, { status: 409 });
   }
 
+  const town = getTown(delivery.zoneId);
+  if (!town) {
+    return NextResponse.json({ error: 'out_of_zone' }, { status: 400 });
+  }
+  const cityName = town.name[locale];
+  const distanceKm = Math.abs(town.offsetKm);
+
   let amountTotalCents = 0;
   for (const item of items) {
     const product = products.find((p) => p.id === item.productId);
@@ -90,8 +98,10 @@ export async function POST(req: NextRequest) {
         customer_email: customer.email,
         customer_phone: customer.phone,
         delivery_address: delivery.address,
-        delivery_city: delivery.city,
+        delivery_city: cityName,
         delivery_postcode: delivery.postcode,
+        delivery_zone_id: delivery.zoneId,
+        delivery_distance_km: distanceKm,
         delivery_slot_id: delivery.slotId,
         delivery_slot_label: delivery.slotLabel,
         age_confirmed: ageConfirmed,
@@ -137,7 +147,7 @@ export async function POST(req: NextRequest) {
       customerName: customer.name,
       customerPhone: customer.phone,
       deliveryAddress: delivery.address,
-      deliveryCity: delivery.city,
+      deliveryCity: cityName,
       deliveryPostcode: delivery.postcode,
       deliverySlotId: delivery.slotId,
       deliverySlotLabel: delivery.slotLabel,
@@ -156,8 +166,10 @@ export async function POST(req: NextRequest) {
     customer_email: customer.email,
     customer_phone: customer.phone,
     delivery_address: delivery.address,
-    delivery_city: delivery.city,
+    delivery_city: cityName,
     delivery_postcode: delivery.postcode,
+    delivery_zone_id: delivery.zoneId,
+    delivery_distance_km: distanceKm,
     delivery_slot_id: delivery.slotId,
     delivery_slot_label: delivery.slotLabel,
     age_confirmed: ageConfirmed,

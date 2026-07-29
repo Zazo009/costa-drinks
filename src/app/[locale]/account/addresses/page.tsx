@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { MapPin, Star, Trash2, Loader2, Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
 import SiteHeader from '@/components/SiteHeader';
+import { DELIVERY_TOWNS, distanceFromDepot } from '@/lib/delivery-zone';
 
 type Address = {
   id: string;
@@ -12,17 +13,19 @@ type Address = {
   address: string;
   city: string;
   postcode: string;
+  zone_id: string | null;
   is_default: boolean;
 };
 
 export default function AddressesPage() {
   const t = useTranslations('account');
   const tc = useTranslations('checkout');
+  const locale = useLocale();
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [form, setForm] = useState({ label: '', address: '', city: '', postcode: '' });
+  const [form, setForm] = useState({ label: '', address: '', zoneId: '', postcode: '' });
 
   const load = async () => {
     const res = await fetch('/api/addresses');
@@ -41,11 +44,11 @@ export default function AddressesPage() {
     const res = await fetch('/api/addresses', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...form, isDefault: addresses.length === 0 }),
+      body: JSON.stringify({ ...form, locale, isDefault: addresses.length === 0 }),
     });
     setSaving(false);
     if (res.ok) {
-      setForm({ label: '', address: '', city: '', postcode: '' });
+      setForm({ label: '', address: '', zoneId: '', postcode: '' });
       setShowForm(false);
       load();
     } else {
@@ -88,6 +91,11 @@ export default function AddressesPage() {
                   <p className="text-sm text-ink/50">
                     {a.address}, {a.city} {a.postcode}
                   </p>
+                  {a.zone_id && (
+                    <p className="mt-0.5 text-xs text-ink/35">
+                      {tc('distanceFromDepot', { km: distanceFromDepot(a.zone_id) ?? 0 })}
+                    </p>
+                  )}
                 </div>
                 <button
                   onClick={() => handleDelete(a.id)}
@@ -122,13 +130,21 @@ export default function AddressesPage() {
               className="w-full rounded-lg border border-ink/10 px-3 py-2.5 text-sm outline-none focus:border-gold"
             />
             <div className="flex gap-3">
-              <input
+              <select
                 required
-                placeholder={tc('city')}
-                value={form.city}
-                onChange={(e) => setForm({ ...form, city: e.target.value })}
-                className="w-full rounded-lg border border-ink/10 px-3 py-2.5 text-sm outline-none focus:border-gold"
-              />
+                value={form.zoneId}
+                onChange={(e) => setForm({ ...form, zoneId: e.target.value })}
+                className={`w-full rounded-lg border border-ink/10 px-3 py-2.5 text-sm outline-none focus:border-gold ${form.zoneId ? 'text-ink' : 'text-ink/40'}`}
+              >
+                <option value="" disabled>
+                  {tc('city')}
+                </option>
+                {DELIVERY_TOWNS.map((town) => (
+                  <option key={town.id} value={town.id}>
+                    {locale === 'es' ? town.name.es : town.name.en}
+                  </option>
+                ))}
+              </select>
               <input
                 required
                 placeholder={tc('postcode')}

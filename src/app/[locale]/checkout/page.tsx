@@ -7,6 +7,7 @@ import SiteHeader from '@/components/SiteHeader';
 import { useCartStore } from '@/lib/cart-store';
 import { products, formatPrice } from '@/data/products';
 import { createClient } from '@/lib/supabase-browser';
+import { DELIVERY_TOWNS, distanceFromDepot } from '@/lib/delivery-zone';
 import type { DeliverySlot } from '@/lib/delivery-slots';
 
 type SavedAddress = {
@@ -15,6 +16,7 @@ type SavedAddress = {
   address: string;
   city: string;
   postcode: string;
+  zone_id: string | null;
   is_default: boolean;
 };
 
@@ -54,7 +56,7 @@ export default function CheckoutPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
+  const [zoneId, setZoneId] = useState('');
   const [postcode, setPostcode] = useState('');
   const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -88,7 +90,7 @@ export default function CheckoutPage() {
         if (def) {
           setSelectedAddressId(def.id);
           setAddress(def.address);
-          setCity(def.city);
+          setZoneId(def.zone_id ?? '');
           setPostcode(def.postcode);
         }
       });
@@ -97,7 +99,7 @@ export default function CheckoutPage() {
   function applyAddress(a: SavedAddress) {
     setSelectedAddressId(a.id);
     setAddress(a.address);
-    setCity(a.city);
+    setZoneId(a.zone_id ?? '');
     setPostcode(a.postcode);
   }
 
@@ -118,7 +120,7 @@ export default function CheckoutPage() {
     email &&
     phone &&
     address &&
-    city &&
+    zoneId &&
     postcode &&
     ageConfirmed &&
     !submitting;
@@ -137,7 +139,7 @@ export default function CheckoutPage() {
           customer: { name, email, phone },
           delivery: {
             address,
-            city,
+            zoneId,
             postcode,
             slotId,
             slotLabel: slot?.label ?? '',
@@ -149,7 +151,13 @@ export default function CheckoutPage() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        setError(data.error === 'sale_window_closed' ? t('errorClosed') : t('errorGeneric'));
+        setError(
+          data.error === 'sale_window_closed'
+            ? t('errorClosed')
+            : data.error === 'out_of_zone'
+              ? t('errorOutOfZone')
+              : t('errorGeneric')
+        );
         setSubmitting(false);
         return;
       }
@@ -225,12 +233,20 @@ export default function CheckoutPage() {
                 className={inputClass}
               />
               <div className="flex gap-3">
-                <input
-                  placeholder={t('city')}
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  className={inputClass}
-                />
+                <select
+                  value={zoneId}
+                  onChange={(e) => setZoneId(e.target.value)}
+                  className={`${inputClass} ${zoneId ? 'text-ink' : 'text-ink/40'}`}
+                >
+                  <option value="" disabled>
+                    {t('city')}
+                  </option>
+                  {DELIVERY_TOWNS.map((town) => (
+                    <option key={town.id} value={town.id}>
+                      {locale === 'es' ? town.name.es : town.name.en}
+                    </option>
+                  ))}
+                </select>
                 <input
                   placeholder={t('postcode')}
                   value={postcode}
@@ -238,6 +254,12 @@ export default function CheckoutPage() {
                   className={inputClass}
                 />
               </div>
+              {zoneId && (
+                <p className="flex items-center gap-1.5 text-xs text-ink/45">
+                  <MapPin size={12} />
+                  {t('distanceFromDepot', { km: distanceFromDepot(zoneId) ?? 0 })}
+                </p>
+              )}
 
               <div className="pt-2">
                 <p className="mb-2 text-sm text-ink/70">{t('slot')}</p>

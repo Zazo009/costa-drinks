@@ -89,7 +89,9 @@
     "summary": "Resumen del pedido",
     "total": "Total",
     "errorClosed": "Lo sentimos, los pedidos están cerrados ahora mismo (fuera del horario legal). Inténtalo de nuevo entre las 08:00 y las 22:00.",
-    "errorGeneric": "Algo salió mal — inténtalo de nuevo."
+    "errorOutOfZone": "Lo sentimos, esa zona está fuera de nuestra área de reparto (de Estepona a Calahonda).",
+    "errorGeneric": "Algo salió mal — inténtalo de nuevo.",
+    "distanceFromDepot": "{km} km desde nuestra base en Marbella"
   },
   "orderStatus": {
     "successTitle": "Pedido confirmado",

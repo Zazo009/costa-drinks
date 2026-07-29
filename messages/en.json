@@ -89,7 +89,9 @@
     "summary": "Order summary",
     "total": "Total",
     "errorClosed": "Sorry, orders are closed right now (outside legal hours). Please try again between 08:00 and 22:00.",
-    "errorGeneric": "Something went wrong — please try again."
+    "errorOutOfZone": "Sorry, that area is outside our delivery zone (Estepona to Calahonda).",
+    "errorGeneric": "Something went wrong — please try again.",
+    "distanceFromDepot": "{km} km from our Marbella depot"
   },
   "orderStatus": {
     "successTitle": "Order confirmed",

@@ -11,6 +11,8 @@ create table if not exists orders (
   delivery_address text not null,
   delivery_city text not null,
   delivery_postcode text not null,
+  delivery_zone_id text,
+  delivery_distance_km numeric,
   delivery_slot_id text not null,
   delivery_slot_label text not null,
   age_confirmed boolean not null default false,
@@ -57,6 +59,7 @@ create table if not exists addresses (
   address text not null,
   city text not null,
   postcode text not null,
+  zone_id text,
   is_default boolean not null default false,
   created_at timestamptz not null default now()
 );
