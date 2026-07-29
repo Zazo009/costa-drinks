@@ -20,10 +20,10 @@ function Section({
   return (
     <div>
       <div className="mb-3 flex items-center gap-2">
-        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-900 text-xs font-semibold text-white">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs font-semibold text-white">
           {step}
         </span>
-        <h2 className="font-semibold text-gray-900">{title}</h2>
+        <h2 className="font-semibold text-ink">{title}</h2>
       </div>
       {children}
     </div>
@@ -31,7 +31,7 @@ function Section({
 }
 
 const inputClass =
-  'w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none transition-colors focus:border-gray-900';
+  'w-full rounded-lg border border-ink/10 px-3 py-2.5 text-sm outline-none transition-colors focus:border-gold';
 
 export default function CheckoutPage() {
   const t = useTranslations('checkout');
@@ -120,10 +120,10 @@ export default function CheckoutPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-cream">
       <SiteHeader />
       <section className="mx-auto max-w-2xl px-6 py-10">
-        <h1 className="mb-8 text-2xl font-bold text-gray-900">{t('title')}</h1>
+        <h1 className="mb-8 text-2xl font-bold text-ink">{t('title')}</h1>
 
         <div className="space-y-10">
           <Section step={1} title={t('contact')}>
@@ -175,8 +175,8 @@ export default function CheckoutPage() {
               </div>
 
               <div className="pt-2">
-                <p className="mb-2 text-sm text-gray-700">{t('slot')}</p>
-                <p className="mb-3 text-xs text-gray-500">{t('slotHelp')}</p>
+                <p className="mb-2 text-sm text-ink/70">{t('slot')}</p>
+                <p className="mb-3 text-xs text-ink/50">{t('slotHelp')}</p>
                 {slots.length === 0 ? (
                   <p className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-900">
                     {t('noSlots')}
@@ -190,8 +190,8 @@ export default function CheckoutPage() {
                         onClick={() => setSlotId(s.id)}
                         className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
                           slotId === s.id
-                            ? 'bg-gray-900 text-white'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            ? 'bg-ink text-white'
+                            : 'bg-ink/5 text-ink/60 hover:bg-ink/10'
                         }`}
                       >
                         {s.label}
@@ -204,7 +204,7 @@ export default function CheckoutPage() {
           </Section>
 
           <Section step={3} title={t('step3')}>
-            <div className="divide-y divide-gray-100 rounded-lg border border-gray-100">
+            <div className="divide-y divide-ink/[0.06] rounded-lg border border-ink/[0.06]">
               {rows.map((r) => (
                 <div key={r.product.id} className="flex justify-between px-3 py-2 text-sm">
                   <span>
@@ -224,7 +224,7 @@ export default function CheckoutPage() {
               <span>{t('idNotice')}</span>
             </div>
 
-            <label className="mt-4 flex items-start gap-2 text-sm text-gray-700">
+            <label className="mt-4 flex items-start gap-2 text-sm text-ink/70">
               <input
                 type="checkbox"
                 checked={ageConfirmed}
@@ -239,7 +239,7 @@ export default function CheckoutPage() {
             <button
               disabled={!canSubmit}
               onClick={handleSubmit}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-gray-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-ink px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-gold-dark disabled:cursor-not-allowed disabled:bg-ink/15"
             >
               {submitting && <Loader2 size={18} className="animate-spin" />}
               {submitting ? t('processing') : t('pay')}

@@ -12,22 +12,22 @@ export default function QuantityStepper({
   min?: number;
 }) {
   return (
-    <div className="flex items-center rounded-lg border border-gray-200">
+    <div className="flex items-center rounded-lg border border-ink/10">
       <button
         type="button"
         aria-label="Decrease quantity"
         onClick={() => onChange(quantity - 1)}
         disabled={quantity <= min}
-        className="flex h-8 w-8 items-center justify-center text-gray-500 hover:text-gray-900 disabled:cursor-not-allowed disabled:opacity-30"
+        className="flex h-8 w-8 items-center justify-center text-ink/50 hover:text-ink disabled:cursor-not-allowed disabled:opacity-30"
       >
         <Minus size={14} />
       </button>
-      <span className="w-8 text-center text-sm font-medium text-gray-900">{quantity}</span>
+      <span className="w-8 text-center text-sm font-medium text-ink">{quantity}</span>
       <button
         type="button"
         aria-label="Increase quantity"
         onClick={() => onChange(quantity + 1)}
-        className="flex h-8 w-8 items-center justify-center text-gray-500 hover:text-gray-900"
+        className="flex h-8 w-8 items-center justify-center text-ink/50 hover:text-ink"
       >
         <Plus size={14} />
       </button>

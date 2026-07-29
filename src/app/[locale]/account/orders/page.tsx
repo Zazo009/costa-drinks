@@ -38,15 +38,15 @@ export default async function OrdersPage() {
     .returns<OrderRow[]>();
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-cream">
       <SiteHeader />
       <section className="mx-auto max-w-2xl px-6 py-10">
-        <h1 className="mb-6 text-2xl font-bold text-gray-900">{t('ordersTitle')}</h1>
+        <h1 className="mb-6 text-2xl font-bold text-ink">{t('ordersTitle')}</h1>
 
         {!orders || orders.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-gray-200 py-16 text-center">
-            <Package className="text-gray-400" size={24} />
-            <p className="text-gray-500">{t('noOrders')}</p>
+          <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-ink/10 py-16 text-center">
+            <Package className="text-ink/35" size={24} />
+            <p className="text-ink/50">{t('noOrders')}</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -64,11 +64,11 @@ export default async function OrdersPage() {
               );
 
               return (
-                <div key={order.id} className="rounded-xl border border-gray-100 p-5 shadow-sm">
+                <div key={order.id} className="rounded-xl border border-ink/[0.06] p-5 shadow-sm">
                   <div className="mb-3 flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-500">{date}</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-sm text-ink/50">{date}</p>
+                      <p className="text-xs text-ink/35">
                         {order.delivery_address}, {order.delivery_city}
                       </p>
                     </div>
@@ -77,7 +77,7 @@ export default async function OrdersPage() {
                         order.status === 'paid'
                           ? 'bg-green-50 text-green-700'
                           : order.status === 'cancelled'
-                            ? 'bg-gray-100 text-gray-500'
+                            ? 'bg-ink/5 text-ink/50'
                             : 'bg-amber-50 text-amber-700'
                       }`}
                     >
@@ -85,7 +85,7 @@ export default async function OrdersPage() {
                     </span>
                   </div>
 
-                  <div className="divide-y divide-gray-100 border-y border-gray-100">
+                  <div className="divide-y divide-ink/[0.06] border-y border-ink/[0.06]">
                     {orderProducts.map((r) => (
                       <div key={r.product.id} className="flex justify-between py-2 text-sm">
                         <span>
@@ -97,7 +97,7 @@ export default async function OrdersPage() {
                   </div>
 
                   <div className="mt-3 flex items-center justify-between">
-                    <span className="font-semibold text-gray-900">
+                    <span className="font-semibold text-ink">
                       {formatPrice(order.amount_total_cents, locale)}
                     </span>
                     <ReorderButton

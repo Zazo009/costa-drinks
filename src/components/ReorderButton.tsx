@@ -19,7 +19,7 @@ export default function ReorderButton({ items }: { items: CartItem[] }) {
         items.forEach((item) => add(item.productId, item.quantity));
         router.push('/cart');
       }}
-      className="flex items-center gap-1.5 rounded-lg border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+      className="flex items-center gap-1.5 rounded-lg border border-ink/10 px-3 py-1.5 text-sm font-medium text-ink/70 hover:bg-ink/[0.03]"
     >
       <RotateCcw size={14} />
       {t('reorder')}

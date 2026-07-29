@@ -20,17 +20,17 @@ export default async function AccountPage() {
   const name = (user.user_metadata?.full_name as string) || user.email;
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-cream">
       <SiteHeader />
       <section className="mx-auto max-w-2xl px-6 py-10">
         <div className="mb-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100">
-              <User className="text-gray-500" size={20} />
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-ink/5">
+              <User className="text-ink/50" size={20} />
             </div>
             <div>
-              <p className="font-semibold text-gray-900">{name}</p>
-              <p className="text-sm text-gray-500">{user.email}</p>
+              <p className="font-semibold text-ink">{name}</p>
+              <p className="text-sm text-ink/50">{user.email}</p>
             </div>
           </div>
           <LogoutButton />
@@ -39,22 +39,22 @@ export default async function AccountPage() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Link
             href="/account/orders"
-            className="flex items-center gap-3 rounded-xl border border-gray-100 p-5 shadow-sm transition-shadow hover:shadow-md"
+            className="flex items-center gap-3 rounded-xl border border-ink/[0.06] p-5 shadow-sm transition-shadow hover:shadow-md"
           >
-            <Package className="text-gray-400" size={22} />
+            <Package className="text-ink/35" size={22} />
             <div>
-              <p className="font-semibold text-gray-900">{t('ordersTitle')}</p>
-              <p className="text-sm text-gray-500">{t('ordersSubtitle')}</p>
+              <p className="font-semibold text-ink">{t('ordersTitle')}</p>
+              <p className="text-sm text-ink/50">{t('ordersSubtitle')}</p>
             </div>
           </Link>
           <Link
             href="/account/favorites"
-            className="flex items-center gap-3 rounded-xl border border-gray-100 p-5 shadow-sm transition-shadow hover:shadow-md"
+            className="flex items-center gap-3 rounded-xl border border-ink/[0.06] p-5 shadow-sm transition-shadow hover:shadow-md"
           >
-            <Heart className="text-gray-400" size={22} />
+            <Heart className="text-ink/35" size={22} />
             <div>
-              <p className="font-semibold text-gray-900">{t('favoritesTitle')}</p>
-              <p className="text-sm text-gray-500">{t('favoritesSubtitle')}</p>
+              <p className="font-semibold text-ink">{t('favoritesTitle')}</p>
+              <p className="text-sm text-ink/50">{t('favoritesSubtitle')}</p>
             </div>
           </Link>
         </div>

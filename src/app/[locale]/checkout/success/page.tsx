@@ -15,11 +15,11 @@ export default function CheckoutSuccessPage() {
   }, [clear]);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-cream">
       <SiteHeader />
       <section className="mx-auto max-w-md px-6 py-20 text-center">
-        <h1 className="mb-3 text-2xl font-bold text-gray-900">{t('successTitle')}</h1>
-        <p className="mb-6 text-gray-600">{t('successBody')}</p>
+        <h1 className="mb-3 text-2xl font-bold text-ink">{t('successTitle')}</h1>
+        <p className="mb-6 text-ink/60">{t('successBody')}</p>
         <Link href="/products" className="text-sm font-medium underline">
           {t('backToShop')}
         </Link>

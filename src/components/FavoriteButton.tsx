@@ -37,7 +37,7 @@ export default function FavoriteButton({ productId }: { productId: string }) {
     >
       <Heart
         size={16}
-        className={mounted && isFavorited ? 'fill-red-500 text-red-500' : 'text-gray-500'}
+        className={mounted && isFavorited ? 'fill-red-500 text-red-500' : 'text-ink/50'}
       />
     </button>
   );

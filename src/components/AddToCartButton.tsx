@@ -21,9 +21,9 @@ export default function AddToCartButton({
         add(productId);
         toast.success(t('added', { name: productLabel }));
       }}
-      className="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gray-700 active:scale-[0.98]"
+      className="flex w-full items-center justify-center gap-1.5 rounded-full bg-ink px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-white transition-all hover:bg-gold-dark active:scale-[0.98] sm:text-sm sm:normal-case sm:tracking-normal"
     >
-      <ShoppingCart size={16} />
+      <ShoppingCart size={15} />
       {t('addToCart')}
     </button>
   );

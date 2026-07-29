@@ -41,10 +41,10 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-cream">
       <SiteHeader />
       <section className="mx-auto max-w-sm px-6 py-16">
-        <h1 className="mb-6 text-2xl font-bold text-gray-900">{t('signupTitle')}</h1>
+        <h1 className="mb-6 text-2xl font-bold text-ink">{t('signupTitle')}</h1>
 
         {done ? (
           <p className="rounded-lg border border-green-200 bg-green-50 p-4 text-sm text-green-900">
@@ -58,7 +58,7 @@ export default function SignupPage() {
               placeholder={t('name')}
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-gray-900"
+              className="w-full rounded-lg border border-ink/10 px-3 py-2.5 text-sm outline-none focus:border-gold"
             />
             <input
               type="email"
@@ -66,7 +66,7 @@ export default function SignupPage() {
               placeholder={t('email')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-gray-900"
+              className="w-full rounded-lg border border-ink/10 px-3 py-2.5 text-sm outline-none focus:border-gold"
             />
             <input
               type="password"
@@ -75,13 +75,13 @@ export default function SignupPage() {
               placeholder={t('password')}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-gray-900"
+              className="w-full rounded-lg border border-ink/10 px-3 py-2.5 text-sm outline-none focus:border-gold"
             />
             {error && <p className="text-sm text-red-600">{error}</p>}
             <button
               type="submit"
               disabled={loading}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-gray-700 disabled:bg-gray-300"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-ink px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-gold-dark disabled:bg-ink/15"
             >
               {loading && <Loader2 size={18} className="animate-spin" />}
               {t('signupCta')}
@@ -89,9 +89,9 @@ export default function SignupPage() {
           </form>
         )}
 
-        <p className="mt-4 text-sm text-gray-500">
+        <p className="mt-4 text-sm text-ink/50">
           {t('haveAccount')}{' '}
-          <Link href="/login" className="font-medium text-gray-900 underline">
+          <Link href="/login" className="font-medium text-ink underline">
             {t('loginCta')}
           </Link>
         </p>

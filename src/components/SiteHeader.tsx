@@ -27,38 +27,43 @@ export default function SiteHeader() {
   const count = items.reduce((sum, i) => sum + i.quantity, 0);
 
   return (
-    <header className="sticky top-0 z-40 flex items-center justify-between border-b border-gray-100 bg-white/80 px-4 py-3 backdrop-blur sm:px-6 sm:py-4">
-      <Link href="/" className="text-base font-bold tracking-tight text-gray-900 sm:text-lg">
-        Costa Drinks
-      </Link>
-      <nav className="flex items-center gap-3 sm:gap-5">
+    <header className="sticky top-0 z-40 border-b border-ink/[0.06] bg-cream/90 backdrop-blur-md">
+      <div className="flex items-center justify-between px-4 py-3.5 sm:px-8 sm:py-5">
         <Link
-          href="/products"
-          className="text-sm font-medium text-gray-600 hover:text-gray-900"
+          href="/"
+          className="font-display text-lg font-semibold italic tracking-tight text-ink sm:text-xl"
         >
-          {t('shop')}
+          Costa Drinks
         </Link>
-        <Link
-          href={loggedIn ? '/account' : '/login'}
-          className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-gray-900"
-        >
-          <User size={17} />
-          <span className="hidden sm:inline">{loggedIn ? t('account') : t('login')}</span>
-        </Link>
-        <Link
-          href="/cart"
-          className="relative flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-gray-900"
-        >
-          <ShoppingCart size={17} />
-          <span className="hidden sm:inline">{t('cart')}</span>
-          {mounted && count > 0 && (
-            <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-gray-900 text-[10px] text-white">
-              {count}
-            </span>
-          )}
-        </Link>
-        <LanguageSwitcher />
-      </nav>
+        <nav className="flex items-center gap-4 sm:gap-7">
+          <Link
+            href="/products"
+            className="text-sm font-medium text-ink/60 transition-colors hover:text-ink"
+          >
+            {t('shop')}
+          </Link>
+          <Link
+            href={loggedIn ? '/account' : '/login'}
+            className="flex items-center gap-1.5 text-sm font-medium text-ink/60 transition-colors hover:text-ink"
+          >
+            <User size={17} strokeWidth={1.75} />
+            <span className="hidden sm:inline">{loggedIn ? t('account') : t('login')}</span>
+          </Link>
+          <Link
+            href="/cart"
+            className="relative flex items-center gap-1.5 text-sm font-medium text-ink/60 transition-colors hover:text-ink"
+          >
+            <ShoppingCart size={17} strokeWidth={1.75} />
+            <span className="hidden sm:inline">{t('cart')}</span>
+            {mounted && count > 0 && (
+              <span className="absolute -right-2.5 -top-2.5 flex h-4 w-4 items-center justify-center rounded-full bg-gold text-[10px] font-medium text-white">
+                {count}
+              </span>
+            )}
+          </Link>
+          <LanguageSwitcher />
+        </nav>
+      </div>
     </header>
   );
 }

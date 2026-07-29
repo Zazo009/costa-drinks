@@ -27,13 +27,13 @@ export default function ProductThumbnail({
   }
 
   return (
-    <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-50">
+    <div className="relative aspect-square overflow-hidden bg-cream">
       <Image
         src={image}
         alt={alt}
         fill
-        sizes="(max-width: 640px) 100vw, 33vw"
-        className="object-contain p-4 transition-transform duration-300 group-hover:scale-[1.03]"
+        sizes="(max-width: 640px) 50vw, 25vw"
+        className="object-contain p-5 transition-transform duration-300 group-hover:scale-[1.05]"
         onError={() => setFailed(true)}
       />
     </div>
