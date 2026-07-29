@@ -61,6 +61,7 @@ export default function CheckoutPage() {
   const [error, setError] = useState<string | null>(null);
   const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>([]);
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<'online' | 'cod'>('online');
 
   useEffect(() => {
     fetch('/api/delivery-slots')
@@ -142,6 +143,7 @@ export default function CheckoutPage() {
             slotLabel: slot?.label ?? '',
           },
           ageConfirmed: true,
+          paymentMethod,
         }),
       });
 
@@ -282,6 +284,34 @@ export default function CheckoutPage() {
               </div>
             </div>
 
+            <div className="mt-5">
+              <p className="mb-2 text-sm text-ink/70">{t('paymentMethod')}</p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('online')}
+                  className={`rounded-xl border px-4 py-3 text-left text-sm font-medium transition-colors ${
+                    paymentMethod === 'online'
+                      ? 'border-ink bg-ink text-white'
+                      : 'border-ink/10 text-ink/70 hover:bg-ink/[0.03]'
+                  }`}
+                >
+                  {t('payOnline')}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('cod')}
+                  className={`rounded-xl border px-4 py-3 text-left text-sm font-medium transition-colors ${
+                    paymentMethod === 'cod'
+                      ? 'border-ink bg-ink text-white'
+                      : 'border-ink/10 text-ink/70 hover:bg-ink/[0.03]'
+                  }`}
+                >
+                  {t('payOnDelivery')}
+                </button>
+              </div>
+            </div>
+
             <div className="mt-4 flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">
               <ShieldCheck size={16} className="mt-0.5 flex-shrink-0" />
               <span>{t('idNotice')}</span>
@@ -305,7 +335,7 @@ export default function CheckoutPage() {
               className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-ink px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-gold-dark disabled:cursor-not-allowed disabled:bg-ink/15"
             >
               {submitting && <Loader2 size={18} className="animate-spin" />}
-              {submitting ? t('processing') : t('pay')}
+              {submitting ? t('processing') : paymentMethod === 'cod' ? t('confirmOrder') : t('pay')}
             </button>
           </Section>
         </div>

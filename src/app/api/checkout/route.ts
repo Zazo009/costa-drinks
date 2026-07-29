@@ -30,6 +30,7 @@ const checkoutSchema = z.object({
     slotLabel: z.string(),
   }),
   ageConfirmed: z.literal(true),
+  paymentMethod: z.enum(['online', 'cod']),
 });
 
 export async function POST(req: NextRequest) {
@@ -52,22 +53,66 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { locale, items, customer, delivery, ageConfirmed } = parsed.data;
+  const { locale, items, customer, delivery, ageConfirmed, paymentMethod } = parsed.data;
 
   if (!isSlotStillValid(delivery.slotId)) {
     return NextResponse.json({ error: 'slot_no_longer_available' }, { status: 409 });
   }
 
-  const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
   let amountTotalCents = 0;
-
   for (const item of items) {
     const product = products.find((p) => p.id === item.productId);
     if (!product) {
       return NextResponse.json({ error: 'invalid_product' }, { status: 400 });
     }
     amountTotalCents += product.priceCents * item.quantity;
-    lineItems.push({
+  }
+
+  const origin = req.headers.get('origin') ?? process.env.NEXT_PUBLIC_SITE_URL!;
+
+  const userClient = await createUserClient();
+  const {
+    data: { user },
+  } = await userClient.auth.getUser();
+
+  const supabase = createServiceClient();
+
+  if (paymentMethod === 'cod') {
+    const { data: order, error } = await supabase
+      .from('orders')
+      .insert({
+        user_id: user?.id ?? null,
+        stripe_session_id: null,
+        payment_method: 'cod',
+        status: 'pending',
+        locale,
+        customer_name: customer.name,
+        customer_email: customer.email,
+        customer_phone: customer.phone,
+        delivery_address: delivery.address,
+        delivery_city: delivery.city,
+        delivery_postcode: delivery.postcode,
+        delivery_slot_id: delivery.slotId,
+        delivery_slot_label: delivery.slotLabel,
+        age_confirmed: ageConfirmed,
+        items,
+        amount_total_cents: amountTotalCents,
+      })
+      .select('id')
+      .single();
+
+    if (error || !order) {
+      return NextResponse.json({ error: 'order_failed' }, { status: 500 });
+    }
+
+    return NextResponse.json({
+      url: `${origin}/${locale}/checkout/success?order_id=${order.id}`,
+    });
+  }
+
+  const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map((item) => {
+    const product = products.find((p) => p.id === item.productId)!;
+    return {
       quantity: item.quantity,
       price_data: {
         currency: 'eur',
@@ -76,11 +121,10 @@ export async function POST(req: NextRequest) {
           name: locale === 'es' ? product.name.es : product.name.en,
         },
       },
-    });
-  }
+    };
+  });
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  const origin = req.headers.get('origin') ?? process.env.NEXT_PUBLIC_SITE_URL!;
 
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
@@ -102,15 +146,10 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  const userClient = await createUserClient();
-  const {
-    data: { user },
-  } = await userClient.auth.getUser();
-
-  const supabase = createServiceClient();
   await supabase.from('orders').insert({
     user_id: user?.id ?? null,
     stripe_session_id: session.id,
+    payment_method: 'online',
     status: 'pending',
     locale,
     customer_name: customer.name,

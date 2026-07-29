@@ -1,7 +1,8 @@
 create table if not exists orders (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references auth.users(id) on delete set null,
-  stripe_session_id text unique not null,
+  stripe_session_id text unique,
+  payment_method text not null default 'online', -- online | cod
   status text not null default 'pending', -- pending | paid | cancelled
   locale text not null,
   customer_name text not null,
