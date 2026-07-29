@@ -43,6 +43,12 @@
     "cava": "Cava y sidra",
     "spirits": "Licores",
     "aperitivo": "Aperitivos",
+    "mixer": "Mezcladores",
+    "searchPlaceholder": "Buscar productos…",
+    "clearSearch": "Borrar búsqueda",
+    "resultsCount": "{count} productos",
+    "noResults": "Ningún producto coincide con tu búsqueda.",
+    "loadMore": "Ver más",
     "favorite": "Guardar en favoritos",
     "loginToFavorite": "Inicia sesión para guardar favoritos"
   },

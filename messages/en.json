@@ -43,6 +43,12 @@
     "cava": "Cava & Cider",
     "spirits": "Spirits",
     "aperitivo": "Aperitifs",
+    "mixer": "Mixers",
+    "searchPlaceholder": "Search products…",
+    "clearSearch": "Clear search",
+    "resultsCount": "{count} products",
+    "noResults": "No products match your search.",
+    "loadMore": "Load more",
     "favorite": "Save to favourites",
     "loginToFavorite": "Log in to save favourites"
   },
