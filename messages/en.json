@@ -94,6 +94,7 @@
     "deliveryFee": "Delivery fee",
     "selectCityFirst": "select city",
     "free": "Free",
+    "ivaIncluded": "VAT ({rate}%) included",
     "total": "Total",
     "errorClosed": "Sorry, orders are closed right now (outside legal hours). Please try again between 08:00 and 22:00.",
     "errorOutOfZone": "Sorry, that area is outside our delivery zone (Estepona to Calahonda).",

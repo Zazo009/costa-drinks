@@ -10,6 +10,7 @@ import { createClient } from '@/lib/supabase-browser';
 import { DELIVERY_TOWNS, distanceFromDepot } from '@/lib/delivery-zone';
 import { computeDeliveryFeeCents } from '@/lib/delivery-fee';
 import { COD_MAX_AMOUNT_CENTS } from '@/lib/order-limits';
+import { ivaFromGrossCents } from '@/lib/vat';
 import type { DeliverySlot } from '@/lib/delivery-slots';
 
 type SavedAddress = {
@@ -334,6 +335,10 @@ export default function CheckoutPage() {
               <div className="flex justify-between px-3 py-2 text-sm font-semibold">
                 <span>{t('total')}</span>
                 <span>{formatPrice(totalCents, locale)}</span>
+              </div>
+              <div className="flex justify-between px-3 py-2 text-xs text-ink/40">
+                <span>{t('ivaIncluded', { rate: 21 })}</span>
+                <span>{formatPrice(ivaFromGrossCents(totalCents), locale)}</span>
               </div>
             </div>
 

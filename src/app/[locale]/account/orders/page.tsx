@@ -14,6 +14,7 @@ type OrderRow = {
   delivery_address: string;
   delivery_city: string;
   amount_total_cents: number;
+  iva_amount_cents: number;
   payment_method: string;
   cod_payment_type: string | null;
   items: { productId: string; quantity: number }[];
@@ -21,6 +22,7 @@ type OrderRow = {
 
 export default async function OrdersPage() {
   const t = await getTranslations('account');
+  const tc = await getTranslations('checkout');
   const locale = await getLocale();
   const supabase = await createUserClient();
   const {
@@ -34,7 +36,7 @@ export default async function OrdersPage() {
   const { data: orders } = await supabase
     .from('orders')
     .select(
-      'id, status, created_at, delivery_slot_label, delivery_address, delivery_city, amount_total_cents, payment_method, cod_payment_type, items'
+      'id, status, created_at, delivery_slot_label, delivery_address, delivery_city, amount_total_cents, iva_amount_cents, payment_method, cod_payment_type, items'
     )
     .order('created_at', { ascending: false })
     .returns<OrderRow[]>();
@@ -105,9 +107,14 @@ export default async function OrdersPage() {
                   </p>
 
                   <div className="mt-3 flex items-center justify-between">
-                    <span className="font-semibold text-ink">
-                      {formatPrice(order.amount_total_cents, locale)}
-                    </span>
+                    <div>
+                      <span className="font-semibold text-ink">
+                        {formatPrice(order.amount_total_cents, locale)}
+                      </span>
+                      <p className="text-xs text-ink/35">
+                        {tc('ivaIncluded', { rate: 21 })}: {formatPrice(order.iva_amount_cents, locale)}
+                      </p>
+                    </div>
                     <ReorderButton
                       items={order.items.map((i) => ({ productId: i.productId, quantity: i.quantity }))}
                     />

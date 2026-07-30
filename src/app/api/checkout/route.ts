@@ -7,6 +7,7 @@ import { isSlotStillValid } from '@/lib/delivery-slots';
 import { getTown } from '@/lib/delivery-zone';
 import { computeDeliveryFeeCents } from '@/lib/delivery-fee';
 import { COD_MAX_AMOUNT_CENTS } from '@/lib/order-limits';
+import { ivaFromGrossCents } from '@/lib/vat';
 import { createServiceClient } from '@/lib/supabase-server';
 import { createUserClient } from '@/lib/supabase-server-user';
 
@@ -88,6 +89,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'out_of_zone' }, { status: 400 });
   }
   const amountTotalCents = subtotalCents + deliveryFeeCents;
+  const ivaAmountCents = ivaFromGrossCents(amountTotalCents);
 
   if (paymentMethod === 'cod' && amountTotalCents > COD_MAX_AMOUNT_CENTS) {
     return NextResponse.json({ error: 'cod_limit_exceeded' }, { status: 400 });
@@ -121,6 +123,7 @@ export async function POST(req: NextRequest) {
         delivery_zone_id: delivery.zoneId,
         delivery_distance_km: distanceKm,
         delivery_fee_cents: deliveryFeeCents,
+        iva_amount_cents: ivaAmountCents,
         delivery_slot_id: delivery.slotId,
         delivery_slot_label: delivery.slotLabel,
         age_confirmed: ageConfirmed,
@@ -203,6 +206,7 @@ export async function POST(req: NextRequest) {
     delivery_zone_id: delivery.zoneId,
     delivery_distance_km: distanceKm,
     delivery_fee_cents: deliveryFeeCents,
+    iva_amount_cents: ivaAmountCents,
     delivery_slot_id: delivery.slotId,
     delivery_slot_label: delivery.slotLabel,
     age_confirmed: ageConfirmed,
