@@ -97,6 +97,7 @@
     "total": "Total",
     "errorClosed": "Lo sentimos, los pedidos están cerrados ahora mismo (fuera del horario legal). Inténtalo de nuevo entre las 08:00 y las 22:00.",
     "errorOutOfZone": "Lo sentimos, esa zona está fuera de nuestra área de reparto (de Estepona a Calahonda).",
+    "codLimitExceeded": "Por seguridad, el pago al entregar solo está disponible para pedidos de hasta {amount}. Para pedidos mayores, paga online.",
     "errorGeneric": "Algo salió mal — inténtalo de nuevo.",
     "distanceFromDepot": "{km} km desde nuestra base en Marbella"
   },

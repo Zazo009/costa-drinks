@@ -6,6 +6,7 @@ import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
 import { isSlotStillValid } from '@/lib/delivery-slots';
 import { getTown } from '@/lib/delivery-zone';
 import { computeDeliveryFeeCents } from '@/lib/delivery-fee';
+import { COD_MAX_AMOUNT_CENTS } from '@/lib/order-limits';
 import { createServiceClient } from '@/lib/supabase-server';
 import { createUserClient } from '@/lib/supabase-server-user';
 
@@ -87,6 +88,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'out_of_zone' }, { status: 400 });
   }
   const amountTotalCents = subtotalCents + deliveryFeeCents;
+
+  if (paymentMethod === 'cod' && amountTotalCents > COD_MAX_AMOUNT_CENTS) {
+    return NextResponse.json({ error: 'cod_limit_exceeded' }, { status: 400 });
+  }
 
   const origin = req.headers.get('origin') ?? process.env.NEXT_PUBLIC_SITE_URL!;
 

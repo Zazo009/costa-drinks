@@ -9,6 +9,7 @@ import { products, formatPrice } from '@/data/products';
 import { createClient } from '@/lib/supabase-browser';
 import { DELIVERY_TOWNS, distanceFromDepot } from '@/lib/delivery-zone';
 import { computeDeliveryFeeCents } from '@/lib/delivery-fee';
+import { COD_MAX_AMOUNT_CENTS } from '@/lib/order-limits';
 import type { DeliverySlot } from '@/lib/delivery-slots';
 
 type SavedAddress = {
@@ -115,6 +116,7 @@ export default function CheckoutPage() {
   const subtotalCents = rows.reduce((sum, r) => sum + r.product.priceCents * r.quantity, 0);
   const deliveryFeeCents = zoneId ? computeDeliveryFeeCents(zoneId, subtotalCents) : null;
   const totalCents = subtotalCents + (deliveryFeeCents ?? 0);
+  const codLimitExceeded = totalCents > COD_MAX_AMOUNT_CENTS;
 
   const canSubmit =
     rows.length > 0 &&
@@ -127,8 +129,15 @@ export default function CheckoutPage() {
     zoneId &&
     postcode &&
     ageConfirmed &&
-    (paymentMethod === 'online' || !!codPaymentType) &&
+    (paymentMethod === 'online' || (!!codPaymentType && !codLimitExceeded)) &&
     !submitting;
+
+  useEffect(() => {
+    if (codLimitExceeded && paymentMethod === 'cod') {
+      setPaymentMethod('online');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [codLimitExceeded]);
 
   async function handleSubmit() {
     setError(null);
@@ -162,7 +171,9 @@ export default function CheckoutPage() {
             ? t('errorClosed')
             : data.error === 'out_of_zone'
               ? t('errorOutOfZone')
-              : t('errorGeneric')
+              : data.error === 'cod_limit_exceeded'
+                ? t('codLimitExceeded', { amount: formatPrice(COD_MAX_AMOUNT_CENTS, locale) })
+                : t('errorGeneric')
         );
         setSubmitting(false);
         return;
@@ -342,16 +353,25 @@ export default function CheckoutPage() {
                 </button>
                 <button
                   type="button"
+                  disabled={codLimitExceeded}
                   onClick={() => setPaymentMethod('cod')}
                   className={`rounded-xl border px-4 py-3 text-left text-sm font-medium transition-colors ${
-                    paymentMethod === 'cod'
-                      ? 'border-ink bg-ink text-white'
-                      : 'border-ink/10 text-ink/70 hover:bg-ink/[0.03]'
+                    codLimitExceeded
+                      ? 'cursor-not-allowed border-ink/10 text-ink/30'
+                      : paymentMethod === 'cod'
+                        ? 'border-ink bg-ink text-white'
+                        : 'border-ink/10 text-ink/70 hover:bg-ink/[0.03]'
                   }`}
                 >
                   {t('payOnDelivery')}
                 </button>
               </div>
+
+              {codLimitExceeded && (
+                <p className="mt-2 text-xs text-ink/45">
+                  {t('codLimitExceeded', { amount: formatPrice(COD_MAX_AMOUNT_CENTS, locale) })}
+                </p>
+              )}
 
               {paymentMethod === 'cod' && (
                 <div className="mt-2">
