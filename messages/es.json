@@ -48,6 +48,8 @@
     "clearSearch": "Borrar búsqueda",
     "resultsCount": "{count} productos",
     "noResults": "Ningún producto coincide con tu búsqueda.",
+    "loadError": "No se pudieron cargar los productos — inténtalo de nuevo.",
+    "retry": "Reintentar",
     "loadMore": "Ver más",
     "favorite": "Guardar en favoritos",
     "loginToFavorite": "Inicia sesión para guardar favoritos"

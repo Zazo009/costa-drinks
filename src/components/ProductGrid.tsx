@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
-import { Search, X } from 'lucide-react';
+import { Search, X, Loader2, RefreshCw } from 'lucide-react';
 import AddToCartButton from '@/components/AddToCartButton';
 import ProductThumbnail from '@/components/ProductThumbnail';
 import FavoriteButton from '@/components/FavoriteButton';
@@ -32,13 +32,26 @@ export default function ProductGrid() {
   const [query, setQuery] = useState('');
   const [visible, setVisible] = useState(PAGE_SIZE);
   const [products, setProducts] = useState<Product[]>([]);
+  const [loadState, setLoadState] = useState<'loading' | 'ready' | 'error'>('loading');
 
   useEffect(() => setVisible(PAGE_SIZE), [category, query]);
 
-  useEffect(() => {
+  function loadProducts() {
+    setLoadState('loading');
     fetch('/api/products')
-      .then((r) => r.json())
-      .then((data) => setProducts(data.products ?? []));
+      .then((r) => {
+        if (!r.ok) throw new Error('bad_response');
+        return r.json();
+      })
+      .then((data) => {
+        setProducts(data.products ?? []);
+        setLoadState('ready');
+      })
+      .catch(() => setLoadState('error'));
+  }
+
+  useEffect(() => {
+    loadProducts();
   }, []);
 
   const filtered = useMemo(() => {
@@ -48,7 +61,7 @@ export default function ProductGrid() {
       if (!q) return true;
       return p.name.es.toLowerCase().includes(q) || p.name.en.toLowerCase().includes(q);
     });
-  }, [category, query]);
+  }, [products, category, query]);
 
   const visibleProducts = filtered.slice(0, visible);
 
@@ -90,11 +103,28 @@ export default function ProductGrid() {
         ))}
       </div>
 
-      <p className="mb-5 text-xs uppercase tracking-wider text-ink/35">
-        {t('resultsCount', { count: filtered.length })}
-      </p>
+      {loadState === 'ready' && (
+        <p className="mb-5 text-xs uppercase tracking-wider text-ink/35">
+          {t('resultsCount', { count: filtered.length })}
+        </p>
+      )}
 
-      {filtered.length === 0 ? (
+      {loadState === 'loading' ? (
+        <div className="flex flex-col items-center gap-2 py-16 text-center">
+          <Loader2 className="animate-spin text-ink/30" size={22} />
+        </div>
+      ) : loadState === 'error' ? (
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-ink/15 py-16 text-center">
+          <p className="text-ink/50">{t('loadError')}</p>
+          <button
+            onClick={loadProducts}
+            className="flex items-center gap-1.5 rounded-full border border-ink/15 px-4 py-2 text-sm font-medium text-ink hover:bg-ink/[0.03]"
+          >
+            <RefreshCw size={14} />
+            {t('retry')}
+          </button>
+        </div>
+      ) : filtered.length === 0 ? (
         <div className="flex flex-col items-center gap-2 rounded-2xl border border-dashed border-ink/15 py-16 text-center">
           <p className="text-ink/50">{t('noResults')}</p>
         </div>

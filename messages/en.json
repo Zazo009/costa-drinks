@@ -48,6 +48,8 @@
     "clearSearch": "Clear search",
     "resultsCount": "{count} products",
     "noResults": "No products match your search.",
+    "loadError": "Couldn't load products — please try again.",
+    "retry": "Retry",
     "loadMore": "Load more",
     "favorite": "Save to favourites",
     "loginToFavorite": "Log in to save favourites"
