@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Costa Drinks — Entrega de alcohol a domicilio en Costa del Sol",
+    "title": "Costa Drinks — Entrega de bebidas a domicilio en Costa del Sol",
     "description": "Pide vino, cerveza y licores con entrega a domicilio en Marbella, Estepona y Benahavís. Venta hasta las 22:00."
   },
   "nav": {
@@ -23,7 +23,7 @@
     "closedBody": "La venta de alcohol a domicilio no está permitida entre las 22:00 y las 08:00 (Ley 4/1997, Andalucía). Vuelve a intentarlo por la mañana."
   },
   "hero": {
-    "title": "Alcohol a domicilio en la Costa del Sol",
+    "title": "Bebidas a domicilio en la Costa del Sol",
     "subtitle": "Marbella · Estepona · Benahavís",
     "cta": "Pedir ahora",
     "ctaDisabled": "Pedidos cerrados",
