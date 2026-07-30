@@ -1,11 +1,11 @@
 import { distanceFromDepot } from './delivery-zone';
 
-const FREE_DELIVERY_THRESHOLD_CENTS = 5000; // 50 €
+const FREE_DELIVERY_THRESHOLD_CENTS = 7500; // 75 €
 
 const FEE_BANDS = [
-  { maxKm: 5, feeCents: 295 },
-  { maxKm: 15, feeCents: 495 },
-  { maxKm: Infinity, feeCents: 695 },
+  { maxKm: 5, feeCents: 495 },
+  { maxKm: 15, feeCents: 795 },
+  { maxKm: Infinity, feeCents: 1295 },
 ];
 
 /**
