@@ -52,7 +52,9 @@
     "retry": "Reintentar",
     "loadMore": "Ver más",
     "favorite": "Guardar en favoritos",
-    "loginToFavorite": "Inicia sesión para guardar favoritos"
+    "loginToFavorite": "Inicia sesión para guardar favoritos",
+    "outOfStock": "Agotado",
+    "lowStock": "Quedan {count}"
   },
   "cart": {
     "title": "Tu carrito",
@@ -103,6 +105,7 @@
     "codLimitExceeded": "Por seguridad, el pago al entregar solo está disponible para pedidos de hasta {amount}. Para pedidos mayores, paga online.",
     "errorGeneric": "Algo salió mal — inténtalo de nuevo.",
     "errorRateLimited": "Demasiados intentos — espera un minuto e inténtalo de nuevo.",
+    "errorOutOfStock": "Lo sentimos, uno de los productos de tu carrito se acaba de agotar. Actualiza tu carrito e inténtalo de nuevo.",
     "distanceFromDepot": "{km} km desde nuestra base en Marbella"
   },
   "orderStatus": {

@@ -10,6 +10,7 @@ type AdminProduct = {
   category: string;
   basePriceCents: number;
   priceCents: number;
+  stock: number;
   enabled: boolean;
   hasOverride: boolean;
 };
@@ -41,12 +42,12 @@ export default function AdminProductsPage() {
     });
   }, [products, category, search]);
 
-  async function saveProduct(id: string, priceCents: number, enabled: boolean) {
+  async function saveProduct(id: string, priceCents: number, stock: number, enabled: boolean) {
     setSavingId(id);
     await fetch(`/api/admin/products/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ priceCents, enabled }),
+      body: JSON.stringify({ priceCents, stock, enabled }),
     });
     setSavingId(null);
     setSavedId(id);
@@ -125,8 +126,23 @@ export default function AdminProductsPage() {
                           priceCents: Math.round(parseFloat(e.target.value || '0') * 100),
                         })
                       }
-                      onBlur={() => saveProduct(p.id, p.priceCents, p.enabled)}
+                      onBlur={() => saveProduct(p.id, p.priceCents, p.stock, p.enabled)}
                       className="w-20 rounded-lg border border-ink/10 px-2 py-1 text-sm outline-none focus:border-gold"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs text-ink/40">Stock</span>
+                    <input
+                      type="number"
+                      min={0}
+                      step="1"
+                      value={p.stock}
+                      onChange={(e) => updateLocal(p.id, { stock: parseInt(e.target.value || '0', 10) })}
+                      onBlur={() => saveProduct(p.id, p.priceCents, p.stock, p.enabled)}
+                      className={`w-16 rounded-lg border px-2 py-1 text-sm outline-none focus:border-gold ${
+                        p.stock === 0 ? 'border-red-200 text-red-600' : 'border-ink/10'
+                      }`}
                     />
                   </div>
 
@@ -136,7 +152,7 @@ export default function AdminProductsPage() {
                       checked={p.enabled}
                       onChange={(e) => {
                         updateLocal(p.id, { enabled: e.target.checked });
-                        saveProduct(p.id, p.priceCents, e.target.checked);
+                        saveProduct(p.id, p.priceCents, p.stock, e.target.checked);
                       }}
                     />
                     Enabled

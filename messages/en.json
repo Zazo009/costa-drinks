@@ -52,7 +52,9 @@
     "retry": "Retry",
     "loadMore": "Load more",
     "favorite": "Save to favourites",
-    "loginToFavorite": "Log in to save favourites"
+    "loginToFavorite": "Log in to save favourites",
+    "outOfStock": "Out of stock",
+    "lowStock": "Only {count} left"
   },
   "cart": {
     "title": "Your cart",
@@ -103,6 +105,7 @@
     "codLimitExceeded": "For security reasons, pay-on-delivery is only available for orders up to {amount}. Please pay online for larger orders.",
     "errorGeneric": "Something went wrong — please try again.",
     "errorRateLimited": "Too many attempts — please wait a minute and try again.",
+    "errorOutOfStock": "Sorry, one of the items in your cart just sold out. Please update your cart and try again.",
     "distanceFromDepot": "{km} km from our Marbella depot"
   },
   "orderStatus": {

@@ -7,7 +7,9 @@ import { Search, X, Loader2, RefreshCw } from 'lucide-react';
 import AddToCartButton from '@/components/AddToCartButton';
 import ProductThumbnail from '@/components/ProductThumbnail';
 import FavoriteButton from '@/components/FavoriteButton';
-import { formatPrice, type Product } from '@/data/products';
+import { formatPrice, type Product as BaseProduct } from '@/data/products';
+
+type Product = BaseProduct & { stock: number };
 
 const CATEGORIES: Array<Product['category'] | 'all'> = [
   'all',
@@ -158,12 +160,25 @@ export default function ProductGrid() {
                     <h2 className="mb-2 line-clamp-2 flex-1 text-sm font-medium leading-snug text-ink sm:text-[15px]">
                       {name}
                     </h2>
-                    <div className="mb-3 flex items-baseline justify-between">
+                    <div className="mb-1 flex items-baseline justify-between">
                       <span className="font-display text-lg font-semibold text-ink">
                         {formatPrice(product.priceCents, locale)}
                       </span>
                     </div>
-                    <AddToCartButton productId={product.id} productLabel={name} />
+                    {product.stock === 0 ? (
+                      <p className="mb-3 text-xs font-medium text-red-500">{t('outOfStock')}</p>
+                    ) : product.stock <= 3 ? (
+                      <p className="mb-3 text-xs font-medium text-amber-600">
+                        {t('lowStock', { count: product.stock })}
+                      </p>
+                    ) : (
+                      <div className="mb-3" />
+                    )}
+                    <AddToCartButton
+                      productId={product.id}
+                      productLabel={name}
+                      outOfStock={product.stock === 0}
+                    />
                   </div>
                 </div>
               );

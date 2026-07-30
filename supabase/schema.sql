@@ -62,6 +62,7 @@ create policy "Users manage own favorites"
 create table if not exists product_overrides (
   product_id text primary key,
   price_cents integer,
+  stock integer, -- null = not yet tracked, treated as the default (10) until first write
   enabled boolean not null default true,
   updated_at timestamptz not null default now()
 );
@@ -72,6 +73,20 @@ drop policy if exists "Anyone can read product overrides" on product_overrides;
 create policy "Anyone can read product overrides"
   on product_overrides for select
   using (true);
+
+-- Atomically decrements stock, seeding the row from the default (10) on
+-- first write, so concurrent checkouts can't oversell.
+create or replace function decrement_product_stock(p_product_id text, p_qty integer, p_default integer)
+returns void as $$
+begin
+  insert into product_overrides (product_id, stock)
+  values (p_product_id, greatest(p_default - p_qty, 0))
+  on conflict (product_id)
+  do update set
+    stock = greatest(coalesce(product_overrides.stock, p_default) - p_qty, 0),
+    updated_at = now();
+end;
+$$ language plpgsql security definer;
 
 create table if not exists addresses (
   id uuid primary key default gen_random_uuid(),

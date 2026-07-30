@@ -7,6 +7,7 @@ import { isAdminEmail } from '@/lib/admin';
 
 const bodySchema = z.object({
   priceCents: z.number().int().positive().nullable(),
+  stock: z.number().int().min(0),
   enabled: z.boolean(),
 });
 
@@ -32,6 +33,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   const { error } = await admin.from('product_overrides').upsert({
     product_id: params.id,
     price_cents: parsed.data.priceCents,
+    stock: parsed.data.stock,
     enabled: parsed.data.enabled,
     updated_at: new Date().toISOString(),
   });

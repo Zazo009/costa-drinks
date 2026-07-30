@@ -176,7 +176,9 @@ export default function CheckoutPage() {
                 ? t('codLimitExceeded', { amount: formatPrice(COD_MAX_AMOUNT_CENTS, locale) })
                 : data.error === 'rate_limited'
                   ? t('errorRateLimited')
-                  : t('errorGeneric')
+                  : data.error === 'out_of_stock'
+                    ? t('errorOutOfStock')
+                    : t('errorGeneric')
         );
         setSubmitting(false);
         return;

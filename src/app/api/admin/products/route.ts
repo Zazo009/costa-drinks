@@ -3,6 +3,7 @@ import { products as staticProducts } from '@/data/products';
 import { createServiceClient } from '@/lib/supabase-server';
 import { createUserClient } from '@/lib/supabase-server-user';
 import { isAdminEmail } from '@/lib/admin';
+import { DEFAULT_STOCK } from '@/lib/products-live';
 
 export async function GET() {
   const userClient = await createUserClient();
@@ -16,7 +17,7 @@ export async function GET() {
   const admin = createServiceClient();
   const { data } = await admin
     .from('product_overrides')
-    .select('product_id, price_cents, enabled');
+    .select('product_id, price_cents, stock, enabled');
 
   const overrides = new Map((data ?? []).map((o) => [o.product_id, o]));
 
@@ -28,6 +29,7 @@ export async function GET() {
       category: p.category,
       basePriceCents: p.priceCents,
       priceCents: override?.price_cents ?? p.priceCents,
+      stock: override?.stock ?? DEFAULT_STOCK,
       enabled: override?.enabled ?? true,
       hasOverride: !!override,
     };

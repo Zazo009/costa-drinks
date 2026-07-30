@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { z } from 'zod';
-import { getLiveProducts } from '@/lib/products-live';
+import { getLiveProducts, decrementStock } from '@/lib/products-live';
 import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
 import { isSlotStillValid } from '@/lib/delivery-slots';
 import { getTown } from '@/lib/delivery-zone';
@@ -88,6 +88,12 @@ export async function POST(req: NextRequest) {
     if (!product) {
       return NextResponse.json({ error: 'invalid_product' }, { status: 400 });
     }
+    if (item.quantity > product.stock) {
+      return NextResponse.json(
+        { error: 'out_of_stock', productId: item.productId },
+        { status: 409 }
+      );
+    }
     subtotalCents += product.priceCents * item.quantity;
   }
 
@@ -143,6 +149,8 @@ export async function POST(req: NextRequest) {
     if (error || !order) {
       return NextResponse.json({ error: 'order_failed' }, { status: 500 });
     }
+
+    await Promise.all(items.map((item) => decrementStock(item.productId, item.quantity)));
 
     return NextResponse.json({
       url: `${origin}/${locale}/checkout/success?order_id=${order.id}`,
@@ -220,6 +228,8 @@ export async function POST(req: NextRequest) {
     items,
     amount_total_cents: amountTotalCents,
   });
+
+  await Promise.all(items.map((item) => decrementStock(item.productId, item.quantity)));
 
   return NextResponse.json({ url: session.url });
 }
