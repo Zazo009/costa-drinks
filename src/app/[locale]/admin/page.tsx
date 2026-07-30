@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
-import SiteHeader from '@/components/SiteHeader';
 import AdminStatusSelect from '@/components/AdminStatusSelect';
 import { createUserClient } from '@/lib/supabase-server-user';
 import { createServiceClient } from '@/lib/supabase-server';
@@ -64,7 +64,19 @@ export default async function AdminOrdersPage({
 
   return (
     <main className="min-h-screen bg-cream">
-      <SiteHeader />
+      <header className="sticky top-0 z-40 border-b border-ink/[0.06] bg-cream/90 px-6 py-4 backdrop-blur">
+        <div className="mx-auto flex max-w-4xl items-center justify-between">
+          <Link href="/admin" className="font-display text-lg italic text-ink">
+            Costa Drinks Admin
+          </Link>
+          <nav className="flex gap-4 text-sm font-medium text-ink/60">
+            <span className="text-ink">Orders</span>
+            <Link href="/admin/products" className="hover:text-ink">
+              Products
+            </Link>
+          </nav>
+        </div>
+      </header>
       <section className="mx-auto max-w-4xl px-6 py-10">
         <h1 className="mb-6 font-display text-2xl font-medium italic text-ink">Orders</h1>
 

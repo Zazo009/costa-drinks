@@ -55,6 +55,24 @@ create policy "Users manage own favorites"
   using (auth.uid() = user_id)
   with check (auth.uid() = user_id);
 
+-- Products live in a static TS file (src/data/products.ts) since it's
+-- generated from scraped data. This table holds admin edits (price,
+-- enabled/disabled) layered on top at read time, so the catalog can be
+-- managed without a redeploy.
+create table if not exists product_overrides (
+  product_id text primary key,
+  price_cents integer,
+  enabled boolean not null default true,
+  updated_at timestamptz not null default now()
+);
+
+alter table product_overrides enable row level security;
+
+drop policy if exists "Anyone can read product overrides" on product_overrides;
+create policy "Anyone can read product overrides"
+  on product_overrides for select
+  using (true);
+
 create table if not exists addresses (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,

@@ -7,7 +7,7 @@ import { Search, X } from 'lucide-react';
 import AddToCartButton from '@/components/AddToCartButton';
 import ProductThumbnail from '@/components/ProductThumbnail';
 import FavoriteButton from '@/components/FavoriteButton';
-import { products, formatPrice, type Product } from '@/data/products';
+import { formatPrice, type Product } from '@/data/products';
 
 const CATEGORIES: Array<Product['category'] | 'all'> = [
   'all',
@@ -31,8 +31,15 @@ export default function ProductGrid() {
   );
   const [query, setQuery] = useState('');
   const [visible, setVisible] = useState(PAGE_SIZE);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => setVisible(PAGE_SIZE), [category, query]);
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then((r) => r.json())
+      .then((data) => setProducts(data.products ?? []));
+  }, []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

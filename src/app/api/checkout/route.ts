@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { z } from 'zod';
-import { products } from '@/data/products';
+import { getLiveProducts } from '@/lib/products-live';
 import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
 import { isSlotStillValid } from '@/lib/delivery-slots';
 import { getTown } from '@/lib/delivery-zone';
@@ -79,6 +79,8 @@ export async function POST(req: NextRequest) {
   }
   const cityName = town.name[locale];
   const distanceKm = Math.abs(town.offsetKm);
+
+  const products = await getLiveProducts();
 
   let subtotalCents = 0;
   for (const item of items) {
