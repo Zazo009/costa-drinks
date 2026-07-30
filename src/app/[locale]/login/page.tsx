@@ -66,6 +66,11 @@ export default function LoginPage() {
             {t('loginCta')}
           </button>
         </form>
+        <p className="mt-3 text-sm text-ink/50">
+          <Link href="/forgot-password" className="font-medium text-ink underline">
+            {t('forgotPassword')}
+          </Link>
+        </p>
         <p className="mt-4 text-sm text-ink/50">
           {t('noAccount')}{' '}
           <Link href="/signup" className="font-medium text-ink underline">

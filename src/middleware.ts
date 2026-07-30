@@ -2,10 +2,12 @@ import { createServerClient } from '@supabase/ssr';
 import createIntlMiddleware from 'next-intl/middleware';
 import { NextResponse, type NextRequest } from 'next/server';
 import { routing } from './i18n/routing';
+import { isAdminEmail } from './lib/admin';
 
 const intlMiddleware = createIntlMiddleware(routing);
 
 const PROTECTED_PREFIX = /^\/(en|es)\/account(\/|$)/;
+const ADMIN_PREFIX = /^\/(en|es)\/admin(\/|$)/;
 
 export default async function middleware(request: NextRequest) {
   const intlResponse = intlMiddleware(request);
@@ -29,12 +31,28 @@ export default async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const locale = request.nextUrl.pathname.startsWith('/en') ? 'en' : 'es';
+
   if (!user && PROTECTED_PREFIX.test(request.nextUrl.pathname)) {
-    const locale = request.nextUrl.pathname.startsWith('/en') ? 'en' : 'es';
     const url = request.nextUrl.clone();
     url.pathname = `/${locale}/login`;
     url.searchParams.set('next', request.nextUrl.pathname);
     return NextResponse.redirect(url);
+  }
+
+  if (ADMIN_PREFIX.test(request.nextUrl.pathname)) {
+    if (!user) {
+      const url = request.nextUrl.clone();
+      url.pathname = `/${locale}/login`;
+      url.searchParams.set('next', request.nextUrl.pathname);
+      return NextResponse.redirect(url);
+    }
+    if (!isAdminEmail(user.email)) {
+      const url = request.nextUrl.clone();
+      url.pathname = `/${locale}`;
+      url.search = '';
+      return NextResponse.redirect(url);
+    }
   }
 
   return intlResponse;

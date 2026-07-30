@@ -174,7 +174,9 @@ export default function CheckoutPage() {
               ? t('errorOutOfZone')
               : data.error === 'cod_limit_exceeded'
                 ? t('codLimitExceeded', { amount: formatPrice(COD_MAX_AMOUNT_CENTS, locale) })
-                : t('errorGeneric')
+                : data.error === 'rate_limited'
+                  ? t('errorRateLimited')
+                  : t('errorGeneric')
         );
         setSubmitting(false);
         return;

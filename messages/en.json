@@ -100,6 +100,7 @@
     "errorOutOfZone": "Sorry, that area is outside our delivery zone (Estepona to Calahonda).",
     "codLimitExceeded": "For security reasons, pay-on-delivery is only available for orders up to {amount}. Please pay online for larger orders.",
     "errorGeneric": "Something went wrong — please try again.",
+    "errorRateLimited": "Too many attempts — please wait a minute and try again.",
     "distanceFromDepot": "{km} km from our Marbella depot"
   },
   "orderStatus": {
@@ -123,7 +124,16 @@
     "errorExists": "An account with this email already exists.",
     "errorGeneric": "Something went wrong — please try again.",
     "confirmEmail": "Check your inbox to confirm your email address before logging in.",
-    "logout": "Log out"
+    "logout": "Log out",
+    "forgotPassword": "Forgot your password?",
+    "forgotPasswordTitle": "Reset your password",
+    "forgotPasswordBody": "Enter your email and we'll send you a link to reset your password.",
+    "sendResetLink": "Send reset link",
+    "resetEmailSent": "Check your inbox for a link to reset your password.",
+    "backToLogin": "Back to login",
+    "resetPasswordTitle": "Set a new password",
+    "newPassword": "New password",
+    "savePassword": "Save password"
   },
   "account": {
     "ordersTitle": "Order history",
@@ -135,6 +145,7 @@
     "reorder": "Reorder",
     "status_pending": "Processing",
     "status_paid": "Confirmed",
+    "status_delivered": "Delivered",
     "status_cancelled": "Cancelled",
     "paidOnline": "Paid online",
     "paidCashOnDelivery": "Cash on delivery",

@@ -100,6 +100,7 @@
     "errorOutOfZone": "Lo sentimos, esa zona está fuera de nuestra área de reparto (de Estepona a Calahonda).",
     "codLimitExceeded": "Por seguridad, el pago al entregar solo está disponible para pedidos de hasta {amount}. Para pedidos mayores, paga online.",
     "errorGeneric": "Algo salió mal — inténtalo de nuevo.",
+    "errorRateLimited": "Demasiados intentos — espera un minuto e inténtalo de nuevo.",
     "distanceFromDepot": "{km} km desde nuestra base en Marbella"
   },
   "orderStatus": {
@@ -123,7 +124,16 @@
     "errorExists": "Ya existe una cuenta con este correo electrónico.",
     "errorGeneric": "Algo salió mal — inténtalo de nuevo.",
     "confirmEmail": "Revisa tu correo para confirmar tu dirección antes de iniciar sesión.",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "forgotPasswordTitle": "Restablecer contraseña",
+    "forgotPasswordBody": "Introduce tu correo y te enviaremos un enlace para restablecer tu contraseña.",
+    "sendResetLink": "Enviar enlace",
+    "resetEmailSent": "Revisa tu correo para restablecer tu contraseña.",
+    "backToLogin": "Volver a iniciar sesión",
+    "resetPasswordTitle": "Establecer nueva contraseña",
+    "newPassword": "Nueva contraseña",
+    "savePassword": "Guardar contraseña"
   },
   "account": {
     "ordersTitle": "Historial de pedidos",
@@ -135,6 +145,7 @@
     "reorder": "Volver a pedir",
     "status_pending": "En proceso",
     "status_paid": "Confirmado",
+    "status_delivered": "Entregado",
     "status_cancelled": "Cancelado",
     "paidOnline": "Pagado online",
     "paidCashOnDelivery": "Efectivo al entregar",

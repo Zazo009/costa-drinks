@@ -78,11 +78,13 @@ export default async function OrdersPage() {
                     </div>
                     <span
                       className={`rounded-full px-2.5 py-1 text-xs font-medium ${
-                        order.status === 'paid'
+                        order.status === 'delivered'
                           ? 'bg-green-50 text-green-700'
-                          : order.status === 'cancelled'
-                            ? 'bg-ink/5 text-ink/50'
-                            : 'bg-amber-50 text-amber-700'
+                          : order.status === 'paid'
+                            ? 'bg-blue-50 text-blue-700'
+                            : order.status === 'cancelled'
+                              ? 'bg-ink/5 text-ink/50'
+                              : 'bg-amber-50 text-amber-700'
                       }`}
                     >
                       {t(`status_${order.status}`)}

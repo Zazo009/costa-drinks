@@ -25,6 +25,8 @@ const fraunces = Fraunces({
   style: ['normal', 'italic'],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://costa-drinks.vercel.app';
+
 export async function generateMetadata({
   params,
 }: {
@@ -32,9 +34,31 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
+  const otherLocale = locale === 'es' ? 'en' : 'es';
+
   return {
+    metadataBase: new URL(siteUrl),
     title: t('title'),
     description: t('description'),
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        [locale]: `/${locale}`,
+        [otherLocale]: `/${otherLocale}`,
+      },
+    },
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      url: `/${locale}`,
+      siteName: 'Costa Drinks',
+      locale: locale === 'es' ? 'es_ES' : 'en_GB',
+      type: 'website',
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 
@@ -54,11 +78,39 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LiquorStore',
+    name: 'Costa Drinks',
+    url: siteUrl,
+    telephone: '+34000000000',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Calle Camilo José Cela, 12 (Ed. Segovia)',
+      addressLocality: 'Marbella',
+      addressRegion: 'Málaga',
+      postalCode: '29602',
+      addressCountry: 'ES',
+    },
+    areaServed: [
+      { '@type': 'City', name: 'Marbella' },
+      { '@type': 'City', name: 'Estepona' },
+      { '@type': 'City', name: 'Benahavís' },
+      { '@type': 'City', name: 'Mijas' },
+    ],
+    openingHours: 'Mo-Su 08:00-22:00',
+    priceRange: '€€',
+  };
+
   return (
     <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <NextIntlClientProvider>
           {children}
           <ToasterProvider />

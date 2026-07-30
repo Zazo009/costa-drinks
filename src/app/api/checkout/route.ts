@@ -10,6 +10,7 @@ import { COD_MAX_AMOUNT_CENTS } from '@/lib/order-limits';
 import { ivaFromGrossCents } from '@/lib/vat';
 import { createServiceClient } from '@/lib/supabase-server';
 import { createUserClient } from '@/lib/supabase-server-user';
+import { isRateLimited, getClientIp } from '@/lib/rate-limit';
 
 const checkoutSchema = z.object({
   locale: z.enum(['en', 'es']),
@@ -43,6 +44,10 @@ const checkoutSchema = z.object({
   });
 
 export async function POST(req: NextRequest) {
+  if (isRateLimited(`checkout:${getClientIp(req)}`, 10, 60_000)) {
+    return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
+  }
+
   // Server-side legal gate — the same check the UI uses, but this is the
   // one that actually matters since the client can't be trusted.
   // Andalucía Ley 4/1997, Art. 26.1.d): no distance alcohol sales 22:00-08:00.
