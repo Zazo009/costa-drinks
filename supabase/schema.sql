@@ -3,6 +3,7 @@ create table if not exists orders (
   user_id uuid references auth.users(id) on delete set null,
   stripe_session_id text unique,
   payment_method text not null default 'online', -- online | cod
+  cod_payment_type text, -- cash | card (only set when payment_method = 'cod')
   status text not null default 'pending', -- pending | paid | cancelled
   locale text not null,
   customer_name text not null,

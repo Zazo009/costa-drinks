@@ -14,6 +14,8 @@ type OrderRow = {
   delivery_address: string;
   delivery_city: string;
   amount_total_cents: number;
+  payment_method: string;
+  cod_payment_type: string | null;
   items: { productId: string; quantity: number }[];
 };
 
@@ -32,7 +34,7 @@ export default async function OrdersPage() {
   const { data: orders } = await supabase
     .from('orders')
     .select(
-      'id, status, created_at, delivery_slot_label, delivery_address, delivery_city, amount_total_cents, items'
+      'id, status, created_at, delivery_slot_label, delivery_address, delivery_city, amount_total_cents, payment_method, cod_payment_type, items'
     )
     .order('created_at', { ascending: false })
     .returns<OrderRow[]>();
@@ -95,6 +97,12 @@ export default async function OrdersPage() {
                       </div>
                     ))}
                   </div>
+
+                  <p className="mt-2 text-xs text-ink/40">
+                    {order.payment_method === 'cod'
+                      ? t(order.cod_payment_type === 'card' ? 'paidCardOnDelivery' : 'paidCashOnDelivery')
+                      : t('paidOnline')}
+                  </p>
 
                   <div className="mt-3 flex items-center justify-between">
                     <span className="font-semibold text-ink">

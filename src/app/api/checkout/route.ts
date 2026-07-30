@@ -33,7 +33,12 @@ const checkoutSchema = z.object({
   }),
   ageConfirmed: z.literal(true),
   paymentMethod: z.enum(['online', 'cod']),
-});
+  codPaymentType: z.enum(['cash', 'card']).optional(),
+})
+  .refine((data) => data.paymentMethod !== 'cod' || !!data.codPaymentType, {
+    message: 'cod_payment_type_required',
+    path: ['codPaymentType'],
+  });
 
 export async function POST(req: NextRequest) {
   // Server-side legal gate — the same check the UI uses, but this is the
@@ -55,7 +60,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { locale, items, customer, delivery, ageConfirmed, paymentMethod } = parsed.data;
+  const { locale, items, customer, delivery, ageConfirmed, paymentMethod, codPaymentType } = parsed.data;
 
   if (!isSlotStillValid(delivery.slotId)) {
     return NextResponse.json({ error: 'slot_no_longer_available' }, { status: 409 });
@@ -99,6 +104,7 @@ export async function POST(req: NextRequest) {
         user_id: user?.id ?? null,
         stripe_session_id: null,
         payment_method: 'cod',
+        cod_payment_type: codPaymentType,
         status: 'pending',
         locale,
         customer_name: customer.name,

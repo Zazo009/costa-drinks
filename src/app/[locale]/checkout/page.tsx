@@ -65,6 +65,7 @@ export default function CheckoutPage() {
   const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>([]);
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<'online' | 'cod'>('online');
+  const [codPaymentType, setCodPaymentType] = useState<'cash' | 'card' | ''>('');
 
   useEffect(() => {
     fetch('/api/delivery-slots')
@@ -126,6 +127,7 @@ export default function CheckoutPage() {
     zoneId &&
     postcode &&
     ageConfirmed &&
+    (paymentMethod === 'online' || !!codPaymentType) &&
     !submitting;
 
   async function handleSubmit() {
@@ -149,6 +151,7 @@ export default function CheckoutPage() {
           },
           ageConfirmed: true,
           paymentMethod,
+          codPaymentType: paymentMethod === 'cod' ? codPaymentType : undefined,
         }),
       });
 
@@ -349,6 +352,36 @@ export default function CheckoutPage() {
                   {t('payOnDelivery')}
                 </button>
               </div>
+
+              {paymentMethod === 'cod' && (
+                <div className="mt-2">
+                  <p className="mb-2 text-xs text-ink/50">{t('codPaymentType')}</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setCodPaymentType('cash')}
+                      className={`rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors ${
+                        codPaymentType === 'cash'
+                          ? 'border-ink bg-ink/[0.06] text-ink'
+                          : 'border-ink/10 text-ink/60 hover:bg-ink/[0.03]'
+                      }`}
+                    >
+                      {t('payCash')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setCodPaymentType('card')}
+                      className={`rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors ${
+                        codPaymentType === 'card'
+                          ? 'border-ink bg-ink/[0.06] text-ink'
+                          : 'border-ink/10 text-ink/60 hover:bg-ink/[0.03]'
+                      }`}
+                    >
+                      {t('payCard')}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="mt-4 flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">
