@@ -7,7 +7,10 @@ export default async function SiteFooter() {
   return (
     <footer className="border-t border-white/10 bg-ink px-6 py-14 text-white/40">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
-        <p className="font-display text-lg italic text-white/80">Costa Drinks</p>
+        <div className="flex items-center gap-2">
+          <img src="/logo.svg" alt="" className="h-7 w-auto" />
+          <p className="font-display text-lg italic text-white/80">Costa Drinks</p>
+        </div>
 
         <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs">
           <Link href="/legal" className="transition-colors hover:text-gold-light">

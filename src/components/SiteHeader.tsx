@@ -29,11 +29,11 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-ink/[0.06] bg-cream/90 backdrop-blur-md">
       <div className="flex items-center justify-between px-4 py-3.5 sm:px-8 sm:py-5">
-        <Link
-          href="/"
-          className="font-display text-lg font-semibold italic tracking-tight text-ink sm:text-xl"
-        >
-          Costa Drinks
+        <Link href="/" className="flex items-center gap-2">
+          <img src="/logo.svg" alt="" className="h-7 w-auto sm:h-8" />
+          <span className="font-display text-lg font-semibold italic tracking-tight text-ink sm:text-xl">
+            Costa Drinks
+          </span>
         </Link>
         <nav className="flex items-center gap-4 sm:gap-7">
           <Link
