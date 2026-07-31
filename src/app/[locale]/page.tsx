@@ -30,45 +30,60 @@ export default async function Home() {
       <SiteHeader />
 
       <section className="relative overflow-hidden bg-ink">
+        {/* sun disc, dusk glow */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(169,126,63,0.18),_transparent_60%)]"
+          className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full sm:-right-16 sm:-top-32 sm:h-[520px] sm:w-[520px]"
+          style={{
+            background:
+              'radial-gradient(circle at 50% 50%, rgba(224,180,106,0.55) 0%, rgba(169,126,63,0.32) 42%, rgba(169,126,63,0) 72%)',
+          }}
         />
-        <div className="relative mx-auto flex max-w-xl flex-col items-center gap-7 px-6 py-20 text-center sm:py-28">
-          <span className="text-xs font-medium uppercase tracking-[0.2em] text-gold-light">
+        {/* horizon line */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-[62%] h-px bg-gradient-to-r from-transparent via-white/[0.14] to-transparent"
+        />
+
+        <div className="relative mx-auto flex max-w-3xl flex-col gap-6 px-6 pb-16 pt-20 sm:gap-8 sm:px-10 sm:pb-24 sm:pt-28">
+          <span className="text-xs font-medium uppercase tracking-[0.22em] text-gold-light">
             Marbella · Estepona · Benahavís
           </span>
-          <h1 className="font-display text-4xl font-medium italic leading-[1.1] tracking-tight text-white sm:text-6xl">
+          <h1 className="max-w-2xl text-balance font-display text-4xl font-medium italic leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl">
             {t('hero.title')}
           </h1>
-          <p className="text-white/50">{t('hero.subtitle')}</p>
+          <p className="max-w-md text-white/50">{t('hero.subtitle')}</p>
 
-          <div className="w-full max-w-sm">
+          <div className="max-w-sm">
             <SaleWindowBanner />
           </div>
 
-          {open ? (
-            <Link
-              href="/products"
-              className="w-full max-w-sm rounded-full bg-gold px-6 py-4 text-center text-base font-semibold text-ink shadow-[0_8px_24px_rgba(169,126,63,0.35)] transition-all hover:bg-gold-light active:scale-[0.98]"
-            >
-              {t('hero.cta')}
-            </Link>
-          ) : (
-            <button
-              disabled
-              className="w-full max-w-sm cursor-not-allowed rounded-full bg-white/10 px-6 py-4 text-base font-semibold text-white/40"
-            >
-              {t('hero.ctaDisabled')}
-            </button>
-          )}
+          <div className="flex flex-wrap items-center gap-6">
+            {open ? (
+              <Link
+                href="/products"
+                className="rounded-sm bg-[#f3ead9] px-7 py-4 text-center text-base font-semibold text-ink shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-all hover:bg-white active:scale-[0.98]"
+              >
+                {t('hero.cta')}
+              </Link>
+            ) : (
+              <button
+                disabled
+                className="cursor-not-allowed rounded-sm bg-white/10 px-7 py-4 text-base font-semibold text-white/40"
+              >
+                {t('hero.ctaDisabled')}
+              </button>
+            )}
+          </div>
 
-          <div className="mt-2 flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
-            {badges.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-1.5 text-xs font-medium text-white/45">
-                <Icon size={14} strokeWidth={1.75} className="text-gold-light" />
+          <div className="mt-4 flex flex-wrap gap-x-10 gap-y-3 border-t border-white/[0.14] pt-6 sm:mt-6">
+            {badges.map(({ label }) => (
+              <span
+                key={label}
+                className="text-[11px] font-medium uppercase tracking-[0.1em] text-white/40"
+              >
                 {label}
-              </div>
+              </span>
             ))}
           </div>
         </div>
