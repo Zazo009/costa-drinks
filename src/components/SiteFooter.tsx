@@ -8,7 +8,7 @@ export default async function SiteFooter() {
     <footer className="border-t border-white/10 bg-ink px-6 py-14 text-white/40">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
         <div className="flex items-center gap-2">
-          <img src="/logo.svg" alt="" className="h-7 w-auto" />
+          <img src="/logo-on-dark.svg" alt="" className="h-7 w-auto" />
           <p className="font-display text-lg italic text-white/80">Costa Drinks</p>
         </div>
 
