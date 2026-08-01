@@ -9,7 +9,7 @@ export default async function SiteFooter() {
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
         <div className="flex items-center gap-2">
           <img src="/logo-on-dark.svg" alt="" className="h-7 w-auto" />
-          <p className="font-display text-lg italic text-white/80">Costa Drinks</p>
+          <p className="text-lg font-extrabold tracking-tight text-[#f4efe1]/90">Costa Drinks</p>
         </div>
 
         <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs">

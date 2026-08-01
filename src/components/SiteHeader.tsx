@@ -31,7 +31,7 @@ export default function SiteHeader() {
       <div className="flex items-center justify-between px-4 py-3.5 sm:px-8 sm:py-5">
         <Link href="/" className="flex items-center gap-2">
           <img src="/logo.svg" alt="" className="h-7 w-auto sm:h-8" />
-          <span className="font-display text-lg font-semibold italic tracking-tight text-ink sm:text-xl">
+          <span className="text-lg font-extrabold tracking-tight text-[#0e3a3c] sm:text-xl">
             Costa Drinks
           </span>
         </Link>
