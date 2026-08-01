@@ -3893,8 +3893,16 @@ export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
 }
 
+const INTL_LOCALES: Record<string, string> = {
+  es: 'es-ES',
+  en: 'en-GB',
+  fr: 'fr-FR',
+  de: 'de-DE',
+  ar: 'ar-SA',
+};
+
 export function formatPrice(cents: number, locale: string) {
-  return new Intl.NumberFormat(locale === 'es' ? 'es-ES' : 'en-GB', {
+  return new Intl.NumberFormat(INTL_LOCALES[locale] ?? 'en-GB', {
     style: 'currency',
     currency: 'EUR',
   }).format(cents / 100);

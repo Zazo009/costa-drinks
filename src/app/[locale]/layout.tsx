@@ -4,7 +4,7 @@ import { Fraunces } from 'next/font/google';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
+import { routing, RTL_LOCALES } from '@/i18n/routing';
 import ToasterProvider from '@/components/ToasterProvider';
 import './globals.css';
 
@@ -34,7 +34,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
-  const otherLocale = locale === 'es' ? 'en' : 'es';
+
+  const OG_LOCALES: Record<string, string> = {
+    es: 'es_ES',
+    en: 'en_GB',
+    fr: 'fr_FR',
+    de: 'de_DE',
+    ar: 'ar_AR',
+  };
 
   return {
     metadataBase: new URL(siteUrl),
@@ -42,17 +49,14 @@ export async function generateMetadata({
     description: t('description'),
     alternates: {
       canonical: `/${locale}`,
-      languages: {
-        [locale]: `/${locale}`,
-        [otherLocale]: `/${otherLocale}`,
-      },
+      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])),
     },
     openGraph: {
       title: t('title'),
       description: t('description'),
       url: `/${locale}`,
       siteName: 'Costa Drinks',
-      locale: locale === 'es' ? 'es_ES' : 'en_GB',
+      locale: OG_LOCALES[locale] ?? 'en_GB',
       type: 'website',
     },
     robots: {
@@ -102,8 +106,10 @@ export default async function LocaleLayout({
     priceRange: '€€',
   };
 
+  const dir = RTL_LOCALES.includes(locale) ? 'rtl' : 'ltr';
+
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={dir}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} antialiased`}
       >

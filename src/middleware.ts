@@ -6,8 +6,9 @@ import { isAdminEmail } from './lib/admin';
 
 const intlMiddleware = createIntlMiddleware(routing);
 
-const PROTECTED_PREFIX = /^\/(en|es)\/account(\/|$)/;
-const ADMIN_PREFIX = /^\/(en|es)\/admin(\/|$)/;
+const LOCALE_PATTERN = routing.locales.join('|');
+const PROTECTED_PREFIX = new RegExp(`^/(${LOCALE_PATTERN})/account(/|$)`);
+const ADMIN_PREFIX = new RegExp(`^/(${LOCALE_PATTERN})/admin(/|$)`);
 
 export default async function middleware(request: NextRequest) {
   const intlResponse = intlMiddleware(request);
@@ -31,7 +32,10 @@ export default async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const locale = request.nextUrl.pathname.startsWith('/en') ? 'en' : 'es';
+  const pathLocale = request.nextUrl.pathname.split('/')[1];
+  const locale = routing.locales.includes(pathLocale as (typeof routing.locales)[number])
+    ? pathLocale
+    : routing.defaultLocale;
 
   if (!user && PROTECTED_PREFIX.test(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone();

@@ -30,7 +30,7 @@ export default function LoginPage() {
       return;
     }
     const next = searchParams.get('next') || `/${locale}/account`;
-    router.push(next.replace(/^\/(en|es)/, ''));
+    router.push(next.replace(/^\/[a-z]{2}(?=\/|$)/, ''));
     router.refresh();
   }
 
