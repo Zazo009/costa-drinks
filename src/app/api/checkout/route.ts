@@ -11,6 +11,7 @@ import { ivaFromGrossCents } from '@/lib/vat';
 import { createServiceClient } from '@/lib/supabase-server';
 import { createUserClient } from '@/lib/supabase-server-user';
 import { isRateLimited, getClientIp } from '@/lib/rate-limit';
+import { sendOrderEmails } from '@/lib/email';
 
 const checkoutSchema = z.object({
   locale: z.enum(['en', 'es']),
@@ -151,6 +152,22 @@ export async function POST(req: NextRequest) {
     }
 
     await Promise.all(items.map((item) => decrementStock(item.productId, item.quantity)));
+
+    await sendOrderEmails({
+      id: order.id,
+      locale,
+      customerName: customer.name,
+      customerEmail: customer.email,
+      customerPhone: customer.phone,
+      deliveryAddress: delivery.address,
+      deliveryCity: cityName,
+      deliveryPostcode: delivery.postcode,
+      deliverySlotLabel: delivery.slotLabel,
+      paymentMethod: 'cod',
+      codPaymentType,
+      items,
+      amountTotalCents,
+    });
 
     return NextResponse.json({
       url: `${origin}/${locale}/checkout/success?order_id=${order.id}`,
