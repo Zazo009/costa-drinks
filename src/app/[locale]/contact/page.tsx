@@ -31,8 +31,8 @@ export default async function ContactPage() {
           </div>
           <div className="flex items-start gap-3">
             <Mail className="mt-0.5 flex-shrink-0 text-ink/35" size={18} />
-            <a href="mailto:info@costadrinks.es" className="text-sm text-ink/70 hover:underline">
-              info@costadrinks.es
+            <a href="mailto:info@costa-drinks.com" className="text-sm text-ink/70 hover:underline">
+              info@costa-drinks.com
             </a>
           </div>
           <div className="flex items-start gap-3">
