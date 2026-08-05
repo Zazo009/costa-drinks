@@ -8,14 +8,20 @@ const STORAGE_KEY = 'costa-drinks-age-verified';
 
 export default function AgeGate() {
   const t = useTranslations('ageGate');
-  const [status, setStatus] = useState<'checking' | 'blocked' | 'declined' | 'clear'>('checking');
+  // Defaults to visible (not a "checking" placeholder) so the modal is
+  // part of the initial HTML instead of waiting on JS hydration + an
+  // effect to paint — that gap was inflating LCP since this modal is
+  // the largest above-the-fold element for first-time visitors, who
+  // are also exactly who this check matters for.
+  const [status, setStatus] = useState<'blocked' | 'declined' | 'clear'>('blocked');
 
   useEffect(() => {
-    const verified = window.sessionStorage.getItem(STORAGE_KEY);
-    setStatus(verified === 'true' ? 'clear' : 'blocked');
+    if (window.sessionStorage.getItem(STORAGE_KEY) === 'true') {
+      setStatus('clear');
+    }
   }, []);
 
-  if (status === 'checking' || status === 'clear') {
+  if (status === 'clear') {
     return null;
   }
 
@@ -25,7 +31,10 @@ export default function AgeGate() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex animate-[fadeIn_0.15s_ease-out] items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+    <div
+      data-age-gate
+      className="fixed inset-0 z-50 flex animate-[fadeIn_0.15s_ease-out] items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+    >
       <div className="w-full max-w-sm animate-[popIn_0.2s_ease-out] rounded-3xl bg-white p-7 text-center shadow-2xl">
         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-gold-light to-gold-dark">
           <Wine className="text-white" size={24} strokeWidth={1.5} />

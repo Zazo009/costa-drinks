@@ -22,6 +22,12 @@ body {
   color: var(--ink);
 }
 
+/* Hides the age-gate instantly for already-verified visitors, before
+   React hydrates — see the inline script in layout.tsx. */
+html.age-ok [data-age-gate] {
+  display: none;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

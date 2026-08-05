@@ -117,6 +117,15 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Runs before the age-gate paints so returning visitors (already
+            verified this session) never see it flash — the modal itself
+            still renders by default so first-time visitors get it as
+            part of the initial HTML instead of waiting on hydration. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem('costa-drinks-age-verified')==='true'){document.documentElement.classList.add('age-ok')}}catch(e){}`,
+          }}
+        />
         <NextIntlClientProvider>
           {children}
           <ToasterProvider />
