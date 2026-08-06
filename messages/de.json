@@ -24,6 +24,8 @@
   },
   "hero": {
     "title": "Das letzte Licht des Tages, direkt an Ihre Tür geliefert.",
+    "titleLine1": "Das letzte Licht des Tages,",
+    "titleLine2": "direkt an Ihre Tür geliefert.",
     "subtitle": "Marbella · Estepona · Benahavís",
     "cta": "Jetzt bestellen",
     "ctaDisabled": "Bestellungen geschlossen",

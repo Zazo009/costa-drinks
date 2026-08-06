@@ -46,18 +46,35 @@ export default async function Home() {
         />
 
         <div className="relative mx-auto flex max-w-3xl flex-col gap-6 px-6 pb-16 pt-20 sm:gap-8 sm:px-10 sm:pb-24 sm:pt-28">
-          <span className="text-xs font-medium uppercase tracking-[0.22em] text-gold-light">
+          <span
+            className="animate-rise-in text-xs font-medium uppercase tracking-[0.22em] text-gold-light"
+            style={{ animationDelay: '0ms' }}
+          >
             {t('hero.subtitle')}
           </span>
-          <h1 className="max-w-2xl text-balance font-display text-4xl font-medium italic leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl">
-            {t('hero.title')}
+          <h1 className="max-w-2xl text-balance font-display text-4xl font-medium italic leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
+            <span
+              className="animate-rise-in block text-white"
+              style={{ animationDelay: '90ms' }}
+            >
+              {t('hero.titleLine1')}
+            </span>
+            <span
+              className="animate-rise-in block text-gold-light"
+              style={{ animationDelay: '220ms' }}
+            >
+              {t('hero.titleLine2')}
+            </span>
           </h1>
 
-          <div className="max-w-sm">
+          <div className="max-w-sm animate-rise-in" style={{ animationDelay: '340ms' }}>
             <SaleWindowBanner />
           </div>
 
-          <div className="flex flex-wrap items-center gap-6">
+          <div
+            className="flex flex-wrap items-center gap-6 animate-rise-in"
+            style={{ animationDelay: '420ms' }}
+          >
             {open ? (
               <Link
                 href="/products"
@@ -75,7 +92,10 @@ export default async function Home() {
             )}
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-x-10 gap-y-3 border-t border-white/[0.14] pt-6 sm:mt-6">
+          <div
+            className="mt-4 flex flex-wrap gap-x-10 gap-y-3 border-t border-white/[0.14] pt-6 sm:mt-6 animate-rise-in"
+            style={{ animationDelay: '500ms' }}
+          >
             {badges.map(({ label }) => (
               <span
                 key={label}

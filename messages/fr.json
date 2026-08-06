@@ -24,6 +24,8 @@
   },
   "hero": {
     "title": "La dernière lumière du jour, livrée à votre porte.",
+    "titleLine1": "La dernière lumière du jour,",
+    "titleLine2": "livrée à votre porte.",
     "subtitle": "Marbella · Estepona · Benahavís",
     "cta": "Commander maintenant",
     "ctaDisabled": "Commandes fermées",

@@ -24,6 +24,8 @@
   },
   "hero": {
     "title": "La última luz del día, entregada en tu puerta.",
+    "titleLine1": "La última luz del día,",
+    "titleLine2": "entregada en tu puerta.",
     "subtitle": "Marbella · Estepona · Benahavís",
     "cta": "Pedir ahora",
     "ctaDisabled": "Pedidos cerrados",
