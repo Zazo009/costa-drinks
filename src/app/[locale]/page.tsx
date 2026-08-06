@@ -29,12 +29,27 @@ export default async function Home() {
       <AgeGate />
       <SiteHeader />
 
-      <section className="grid grid-cols-1 overflow-hidden bg-[#0e3a3c] lg:grid-cols-[1.15fr_0.85fr]">
-        <div className="flex flex-col justify-center gap-6 px-6 py-16 sm:gap-7 sm:px-10 sm:py-20 lg:py-24">
-          <span className="w-fit rounded-full bg-[#d7e05a] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.1em] text-[#0e3a3c]">
+      <section className="relative overflow-hidden bg-ink">
+        {/* sun disc, dusk glow */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full sm:-right-16 sm:-top-32 sm:h-[520px] sm:w-[520px]"
+          style={{
+            background:
+              'radial-gradient(circle at 50% 50%, rgba(224,180,106,0.55) 0%, rgba(169,126,63,0.32) 42%, rgba(169,126,63,0) 72%)',
+          }}
+        />
+        {/* horizon line */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-[62%] h-px bg-gradient-to-r from-transparent via-white/[0.14] to-transparent"
+        />
+
+        <div className="relative mx-auto flex max-w-3xl flex-col gap-6 px-6 pb-16 pt-20 sm:gap-8 sm:px-10 sm:pb-24 sm:pt-28">
+          <span className="text-xs font-medium uppercase tracking-[0.22em] text-gold-light">
             {t('hero.subtitle')}
           </span>
-          <h1 className="max-w-xl text-balance text-4xl font-extrabold leading-[0.98] tracking-tight text-[#f4efe1] sm:text-6xl lg:text-6xl xl:text-7xl">
+          <h1 className="max-w-2xl text-balance font-display text-4xl font-medium italic leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl">
             {t('hero.title')}
           </h1>
 
@@ -46,73 +61,30 @@ export default async function Home() {
             {open ? (
               <Link
                 href="/products"
-                className="rounded-full bg-[#d7e05a] px-7 py-4 text-center text-base font-bold text-[#0e3a3c] shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-all hover:brightness-105 active:scale-[0.98]"
+                className="rounded-sm bg-[#f3ead9] px-7 py-4 text-center text-base font-semibold text-ink shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-all hover:bg-white active:scale-[0.98]"
               >
                 {t('hero.cta')}
               </Link>
             ) : (
               <button
                 disabled
-                className="cursor-not-allowed rounded-full bg-[#f4efe1]/10 px-7 py-4 text-base font-bold text-[#f4efe1]/40"
+                className="cursor-not-allowed rounded-sm bg-white/10 px-7 py-4 text-base font-semibold text-white/40"
               >
                 {t('hero.ctaDisabled')}
               </button>
             )}
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-x-10 gap-y-3 border-t border-[#f4efe1]/[0.14] pt-6 sm:mt-6">
+          <div className="mt-4 flex flex-wrap gap-x-10 gap-y-3 border-t border-white/[0.14] pt-6 sm:mt-6">
             {badges.map(({ label }) => (
               <span
                 key={label}
-                className="text-[11px] font-medium uppercase tracking-[0.1em] text-[#f4efe1]/45"
+                className="text-[11px] font-medium uppercase tracking-[0.1em] text-white/40"
               >
                 {label}
               </span>
             ))}
           </div>
-        </div>
-
-        <div className="relative min-h-[280px] overflow-hidden lg:min-h-0">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(58% 58% at 70% 32%, rgba(215,224,90,0.24) 0%, rgba(215,224,90,0) 70%), linear-gradient(200deg, #0a2c2e 0%, #0e3a3c 60%, #123f42 100%)',
-            }}
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-50"
-            style={{
-              backgroundImage: 'radial-gradient(rgba(244,239,225,0.06) 1.5px, transparent 1.5px)',
-              backgroundSize: '26px 26px',
-            }}
-          />
-          <svg
-            aria-hidden
-            viewBox="0 0 200 260"
-            className="absolute right-[10%] top-1/2 h-auto w-[190px] -translate-y-1/2 drop-shadow-[0_30px_60px_rgba(0,0,0,0.35)] sm:w-[240px]"
-          >
-            <path
-              d="M40 20 L160 20 L145 150 Q145 175 100 175 Q55 175 55 150 Z"
-              fill="none"
-              stroke="#f4efe1"
-              strokeWidth="3"
-              opacity="0.85"
-            />
-            <path
-              d="M55 150 Q55 175 100 175 Q145 175 145 150 L142 118 L58 118 Z"
-              fill="#d7e05a"
-              opacity="0.55"
-            />
-            <line x1="100" y1="175" x2="100" y2="230" stroke="#f4efe1" strokeWidth="3" opacity="0.85" />
-            <line x1="65" y1="230" x2="135" y2="230" stroke="#f4efe1" strokeWidth="3" opacity="0.85" />
-            <circle cx="90" cy="70" r="9" fill="#f4efe1" opacity="0.9" />
-            <circle cx="118" cy="95" r="7" fill="#f4efe1" opacity="0.75" />
-            <circle cx="75" cy="100" r="6" fill="#f4efe1" opacity="0.6" />
-            <line x1="150" y1="30" x2="150" y2="70" stroke="#d7e05a" strokeWidth="3" strokeLinecap="round" />
-          </svg>
         </div>
       </section>
 
