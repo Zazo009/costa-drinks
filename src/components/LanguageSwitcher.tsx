@@ -45,7 +45,7 @@ export default function LanguageSwitcher() {
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex items-center gap-1.5 rounded-full border border-ink/10 px-3 py-1.5 text-xs font-medium text-ink/70 transition-colors hover:border-ink/20 hover:text-ink"
+        className="cd-focus-ring flex items-center gap-1.5 border-2 border-[#0b1a17] px-3 py-1.5 text-[13px] tracking-[0.08em] text-[#0b1a17] transition-colors hover:bg-[#0b1a17] hover:text-[#f6f3ea]"
       >
         <Globe size={14} strokeWidth={1.75} />
         {LANGUAGE_NAMES[locale]?.code ?? locale.toUpperCase()}
@@ -55,7 +55,7 @@ export default function LanguageSwitcher() {
       {open && (
         <div
           role="listbox"
-          className="absolute right-0 top-[calc(100%+8px)] z-50 w-44 overflow-hidden rounded-xl border border-ink/10 bg-white py-1 shadow-[0_12px_32px_rgba(20,17,13,0.14)]"
+          className="absolute right-0 top-[calc(100%+8px)] z-50 w-44 overflow-hidden border-2 border-[#0b1a17] bg-[#f6f3ea] py-1 shadow-[0_12px_32px_rgba(11,26,23,0.18)]"
         >
           {routing.locales.map((loc) => (
             <button
@@ -67,11 +67,11 @@ export default function LanguageSwitcher() {
                 router.replace(pathname, { locale: loc });
               }}
               className={`flex w-full items-center justify-between px-3.5 py-2.5 text-left text-sm transition-colors ${
-                loc === locale ? 'bg-ink/5 font-medium text-ink' : 'text-ink/70 hover:bg-ink/[0.03]'
+                loc === locale ? 'bg-[#0b1a17]/5 font-medium text-[#0b1a17]' : 'text-[#0b1a17]/70 hover:bg-[#0b1a17]/[0.05]'
               }`}
             >
               <span>{LANGUAGE_NAMES[loc]?.native ?? loc}</span>
-              {loc === locale && <Check size={14} className="text-gold-dark" />}
+              {loc === locale && <Check size={14} className="text-[#e9a86a]" />}
             </button>
           ))}
         </div>

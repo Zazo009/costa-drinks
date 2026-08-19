@@ -1,20 +1,24 @@
 import { getTranslations } from 'next-intl/server';
-import { Truck, ShieldCheck, GlassWater } from 'lucide-react';
 import AgeGate from '@/components/AgeGate';
-import SaleWindowBanner from '@/components/SaleWindowBanner';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
+import HeroStatus from '@/components/HeroStatus';
+import HeroMedia from '@/components/HeroMedia';
 import { Link } from '@/i18n/navigation';
 import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
+import { RTL_LOCALES } from '@/i18n/routing';
 
-export default async function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const isRtl = RTL_LOCALES.includes(locale);
   const t = await getTranslations();
   const open = isAlcoholSaleWindowOpen();
 
-  const badges = [
-    { icon: Truck, label: t('hero.badgeDelivery') },
-    { icon: ShieldCheck, label: t('hero.badgeLegal') },
-    { icon: GlassWater, label: t('hero.badgeSelection') },
+  const claims = [
+    t('hero.badgeDelivery'),
+    t('hero.badgeLegal'),
+    t('hero.badgeSelection'),
+    t('hero.claimWeekly'),
   ];
 
   const categories: Array<{ key: 'wine' | 'spirits' | 'beer' | 'cava'; emoji: string }> = [
@@ -25,154 +29,134 @@ export default async function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-cream">
+    <main className="flex min-h-screen flex-col bg-cream">
       <AgeGate />
       <SiteHeader />
 
-      <section className="hero-lifestyle-bg relative overflow-hidden">
-        {/* living Marbella-sunset backdrop: slow-drifting warm blobs */}
+      <section
+        className="relative flex-1 overflow-hidden bg-[#0b1a17]"
+        style={{ minHeight: 'clamp(540px, 74vh, 880px)' }}
+      >
+        <HeroMedia />
+
+        {/* scrims — carry text legibility, tuned to this footage. The
+            horizontal scrim is heaviest where the copy column sits, so it
+            mirrors for RTL locales (copy reads from the right there). */}
         <div
           aria-hidden
-          className="hero-blob animate-drift-a -right-20 -top-32 h-[520px] w-[520px]"
-          style={{ background: 'radial-gradient(circle, rgba(255,138,92,0.55) 0%, rgba(255,138,92,0) 70%)' }}
+          className="pointer-events-none absolute inset-0 z-[1]"
+          style={{
+            background:
+              'linear-gradient(100deg, rgba(11,26,23,.95) 0%, rgba(11,26,23,.86) 34%, rgba(11,26,23,.4) 62%, rgba(11,26,23,.05) 88%)',
+            transform: isRtl ? 'scaleX(-1)' : undefined,
+          }}
         />
         <div
           aria-hidden
-          className="hero-blob animate-drift-b right-10 top-24 h-[420px] w-[420px]"
-          style={{ background: 'radial-gradient(circle, rgba(224,83,138,0.42) 0%, rgba(224,83,138,0) 70%)' }}
-        />
-        <div
-          aria-hidden
-          className="hero-blob animate-drift-c right-1/3 bottom-0 h-[460px] w-[460px]"
-          style={{ background: 'radial-gradient(circle, rgba(224,180,106,0.4) 0%, rgba(224,180,106,0) 70%)' }}
-        />
-        <div
-          aria-hidden
-          className="hero-blob animate-drift-b -left-10 bottom-[-10%] h-[380px] w-[380px]"
-          style={{ background: 'radial-gradient(circle, rgba(31,111,120,0.4) 0%, rgba(31,111,120,0) 70%)' }}
-        />
-        {/* scrim so headline/CTA stay legible over the moving colour */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#14101f] via-[#14101f]/70 to-transparent"
-        />
-        {/* horizon line */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-[62%] h-px bg-gradient-to-r from-transparent via-white/[0.14] to-transparent"
+          className="pointer-events-none absolute inset-0 z-[1]"
+          style={{ background: 'linear-gradient(to top, rgba(11,26,23,.72), rgba(11,26,23,0) 45%)' }}
         />
 
-        {/* animated drinks — signals "alcohol delivery" at a glance */}
+        {/* decorative apricot bloom */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-4 bottom-0 hidden opacity-90 md:block lg:right-10"
+          className="animate-cd-glow pointer-events-none absolute z-[1]"
+          style={{
+            inset: 'auto -30% -40% -50%',
+            height: '80%',
+            background: 'radial-gradient(circle at 50% 50%, rgba(233,168,106,.26), rgba(11,26,23,0) 62%)',
+          }}
+        />
+
+        {/* content column (z-2) */}
+        <div
+          className="font-cd-body relative z-[2] flex w-full flex-col justify-center"
+          style={{
+            maxWidth: 'min(100%, 980px)',
+            padding: 'clamp(28px,4vw,72px) clamp(20px,4vw,64px) clamp(24px,3vw,48px)',
+            gap: 'clamp(20px, 2.4vw, 32px)',
+          }}
         >
-          <svg width="240" height="300" viewBox="0 0 240 300" fill="none">
-            <defs>
-              <clipPath id="coupeLiquid">
-                <path d="M76 150 H164 L158 196 Q158 224 120 224 Q82 224 82 196 Z" />
-              </clipPath>
-            </defs>
-
-            {/* wine glass, set back and slightly left */}
-            <g opacity="0.55" transform="translate(0 18)">
-              <path
-                d="M18 40 H62 L57 108 Q57 128 40 128 Q23 128 23 108 Z"
-                fill="none"
-                stroke="#e0b46a"
-                strokeWidth="2.5"
-              />
-              <path
-                d="M23 100 L57 100 L57 108 Q57 128 40 128 Q23 128 23 108 Z"
-                fill="#a97e3f"
-                opacity="0.5"
-              />
-              <line x1="40" y1="128" x2="40" y2="168" stroke="#e0b46a" strokeWidth="2.5" />
-              <line x1="26" y1="170" x2="54" y2="170" stroke="#e0b46a" strokeWidth="2.5" strokeLinecap="round" />
-            </g>
-
-            {/* coupe glass, foreground */}
-            <g className="animate-liquid" style={{ transformOrigin: '120px 190px' }}>
-              <path
-                d="M76 150 H164 L158 196 Q158 224 120 224 Q82 224 82 196 Z"
-                fill="none"
-                stroke="#f3ead9"
-                strokeWidth="3.5"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M82 194 L158 194 L158 196 Q158 224 120 224 Q82 224 82 196 Z"
-                fill="#c7a15e"
-                opacity="0.85"
-              />
-              <line x1="120" y1="224" x2="120" y2="264" stroke="#f3ead9" strokeWidth="3.5" strokeLinecap="round" />
-              <line x1="98" y1="266" x2="142" y2="266" stroke="#f3ead9" strokeWidth="3.5" strokeLinecap="round" />
-
-              <g clipPath="url(#coupeLiquid)">
-                <circle className="animate-bubble" cx="102" cy="212" r="2.5" fill="#f3ead9" style={{ animationDelay: '0s' }} />
-                <circle className="animate-bubble" cx="120" cy="216" r="2" fill="#f3ead9" style={{ animationDelay: '0.9s' }} />
-                <circle className="animate-bubble" cx="136" cy="210" r="2.5" fill="#f3ead9" style={{ animationDelay: '1.7s' }} />
-                <circle className="animate-bubble" cx="112" cy="206" r="1.6" fill="#f3ead9" style={{ animationDelay: '2.4s' }} />
-              </g>
-            </g>
-          </svg>
-        </div>
-
-        <div className="relative mx-auto flex max-w-3xl flex-col gap-6 px-6 pb-16 pt-20 sm:gap-8 sm:px-10 sm:pb-24 sm:pt-28">
-          <span
-            className="animate-rise-in text-xs font-medium uppercase tracking-[0.22em] text-gold-light"
-            style={{ animationDelay: '0ms' }}
-          >
-            {t('hero.subtitle')}
-          </span>
-          <h1 className="max-w-2xl text-balance font-display text-4xl font-medium italic leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
+          <div className="flex flex-col" style={{ gap: 'clamp(20px, 2.4vw, 30px)' }}>
             <span
-              className="animate-rise-in block text-white"
-              style={{ animationDelay: '90ms' }}
+              className="animate-cd-widen text-[13px] uppercase tracking-[0.22em] text-[#e9a86a]"
+              style={{ animationDelay: '0ms' }}
             >
-              {t('hero.titleLine1')}
+              {t('hero.subtitle')}
             </span>
-            <span
-              className="animate-rise-in block text-gold-light"
-              style={{ animationDelay: '220ms' }}
+
+            <h1
+              className="font-cd-display text-balance italic"
+              style={{ fontSize: 'clamp(44px, 6.4vw, 86px)', lineHeight: 1.02, letterSpacing: '-.02em' }}
             >
-              {t('hero.titleLine2')}
-            </span>
-          </h1>
+              <span
+                className="animate-cd-rise block text-[#f7f3ea]"
+                style={{ animationDelay: '100ms' }}
+              >
+                {t('hero.titleLine1')}
+              </span>
+              <span
+                className="animate-cd-rise block text-[#e9a86a]"
+                style={{ animationDelay: '240ms' }}
+              >
+                {t('hero.titleLine2')}
+              </span>
+            </h1>
 
-          <div className="max-w-sm animate-rise-in" style={{ animationDelay: '340ms' }}>
-            <SaleWindowBanner />
-          </div>
+            <div
+              className="animate-cd-wipe h-[2px] w-full bg-[#e9a86a]"
+              style={{ transformOrigin: 'left', animationDelay: '420ms' }}
+            />
 
-          <div
-            className="flex flex-wrap items-center gap-6 animate-rise-in"
-            style={{ animationDelay: '420ms' }}
-          >
-            {open ? (
+            <div className="animate-cd-rise" style={{ animationDelay: '500ms' }}>
+              <HeroStatus />
+            </div>
+
+            <div
+              className="animate-cd-rise flex flex-wrap items-center gap-5"
+              style={{ animationDelay: '600ms' }}
+            >
+              {open ? (
+                <Link
+                  href="/products"
+                  className="cd-focus-ring inline-flex items-center gap-3.5 bg-[#f7f3ea] px-[26px] py-[18px] text-[16px] font-semibold tracking-[.01em] text-[#0b1a17] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e9a86a]"
+                >
+                  {t('hero.cta')}
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" className="rtl:rotate-180">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
+                  </svg>
+                </Link>
+              ) : (
+                <button
+                  disabled
+                  className="inline-flex cursor-not-allowed items-center gap-3.5 bg-[#f7f3ea]/20 px-[26px] py-[18px] text-[16px] font-semibold tracking-[.01em] text-[#f7f3ea]/50"
+                >
+                  {t('hero.ctaDisabled')}
+                </button>
+              )}
               <Link
                 href="/products"
-                className="rounded-sm bg-[#f3ead9] px-7 py-4 text-center text-base font-semibold text-ink shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-all hover:bg-white active:scale-[0.98]"
+                className="cd-focus-ring border-b-2 pb-[3px] text-[15px] text-[#e9a86a] transition-colors hover:text-[#f0dcb4]"
+                style={{ borderColor: 'rgba(233,168,106,.45)' }}
               >
-                {t('hero.cta')}
+                {t('hero.ctaSecondary')}
               </Link>
-            ) : (
-              <button
-                disabled
-                className="cursor-not-allowed rounded-sm bg-white/10 px-7 py-4 text-base font-semibold text-white/40"
-              >
-                {t('hero.ctaDisabled')}
-              </button>
-            )}
+            </div>
           </div>
 
           <div
-            className="mt-4 flex flex-wrap gap-x-10 gap-y-3 border-t border-white/[0.14] pt-6 sm:mt-6 animate-rise-in"
-            style={{ animationDelay: '500ms' }}
+            className="animate-cd-rise grid gap-[18px] border-t-2 pt-5"
+            style={{
+              borderColor: '#1c3630',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+              animationDelay: '720ms',
+            }}
           >
-            {badges.map(({ label }) => (
+            {claims.map((label, i) => (
               <span
                 key={label}
-                className="text-[11px] font-medium uppercase tracking-[0.1em] text-white/40"
+                className="text-[12px] uppercase tracking-[.14em]"
+                style={{ color: i === claims.length - 1 ? '#e9a86a' : '#7d918a' }}
               >
                 {label}
               </span>

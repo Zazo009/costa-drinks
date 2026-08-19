@@ -23,15 +23,21 @@
     "closedBody": "La venta de alcohol a domicilio no está permitida entre las 22:00 y las 08:00 (Ley 4/1997, Andalucía). Vuelve a intentarlo por la mañana."
   },
   "hero": {
-    "title": "La última luz del día, entregada en tu puerta.",
+    "title": "La última luz del día, en tu puerta en 60 minutos.",
     "titleLine1": "La última luz del día,",
-    "titleLine2": "entregada en tu puerta.",
+    "titleLine2": "en tu puerta en 60 minutos.",
     "subtitle": "Marbella · Estepona · Benahavís",
     "cta": "Pedir ahora",
+    "ctaSecondary": "Ver el catálogo completo",
     "ctaDisabled": "Pedidos cerrados",
     "badgeDelivery": "Entrega el mismo día",
     "badgeLegal": "100% conforme a la ley",
-    "badgeSelection": "Vino, cerveza y licores"
+    "badgeSelection": "Vino, cerveza y licores",
+    "claimWeekly": "Selección de la semana · Manzanilla · Verdejo · Vermut",
+    "statusOpenLabel": "Abierto para pedidos",
+    "statusOpenDetail": "Cierra a las 22:00 — reparto legal en Andalucía 08:00–22:00",
+    "statusClosedLabel": "Cerrado ahora",
+    "statusClosedDetail": "Abrimos a las 08:00 — reparto legal en Andalucía 08:00–22:00"
   },
   "products": {
     "title": "Tienda",

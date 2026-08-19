@@ -23,15 +23,21 @@
     "closedBody": "La livraison d'alcool à domicile n'est pas autorisée entre 22h00 et 08h00 (Ley 4/1997, Andalousie). Merci de réessayer le matin."
   },
   "hero": {
-    "title": "La dernière lumière du jour, livrée à votre porte.",
+    "title": "La dernière lumière du jour, à votre porte en 60 minutes.",
     "titleLine1": "La dernière lumière du jour,",
-    "titleLine2": "livrée à votre porte.",
+    "titleLine2": "à votre porte en 60 minutes.",
     "subtitle": "Marbella · Estepona · Benahavís",
     "cta": "Commander maintenant",
+    "ctaSecondary": "Voir le catalogue complet",
     "ctaDisabled": "Commandes fermées",
     "badgeDelivery": "Livraison le jour même",
     "badgeLegal": "100 % conforme à la loi",
-    "badgeSelection": "Vin, bière et spiritueux"
+    "badgeSelection": "Vin, bière et spiritueux",
+    "claimWeekly": "Sélection de la semaine · Manzanilla · Verdejo · Vermouth",
+    "statusOpenLabel": "Ouvert aux commandes",
+    "statusOpenDetail": "Ferme à 22h00 — créneau de livraison légal en Andalousie : 08h00–22h00",
+    "statusClosedLabel": "Fermé pour le moment",
+    "statusClosedDetail": "Ouvre à 08h00 — créneau de livraison légal en Andalousie : 08h00–22h00"
   },
   "products": {
     "title": "Boutique",

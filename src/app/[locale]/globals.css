@@ -9,6 +9,19 @@
   --gold: #a97e3f;
   --gold-light: #c7a15e;
   --cream: #fbf9f6;
+
+  /* Hero — Modernist velvet-green/apricot palette (scoped to header + hero) */
+  --cd-ground: #0b1a17;
+  --cd-surface: #10231f;
+  --cd-border: #1c3630;
+  --cd-header-ground: #f6f3ea;
+  --cd-text-primary: #f7f3ea;
+  --cd-text-secondary: #c2cfc9;
+  --cd-text-muted: #7d918a;
+  --cd-accent: #e9a86a;
+  --cd-accent-hover: #f0dcb4;
+  --cd-status-open: #a8d0a8;
+  --cd-status-closed: #e0503a;
 }
 
 body {
@@ -35,6 +48,12 @@ html.age-ok [data-age-gate] {
   .font-display {
     font-family: var(--font-fraunces), Georgia, serif;
     font-optical-sizing: auto;
+  }
+  .font-cd-display {
+    font-family: var(--font-instrument-serif), Georgia, serif;
+  }
+  .font-cd-body {
+    font-family: var(--font-archivo), system-ui, sans-serif;
   }
 }
 
@@ -183,4 +202,89 @@ html.age-ok [data-age-gate] {
   .animate-drift-c {
     animation: none;
   }
+}
+
+/* Hero entrance choreography + ambient loops (design handoff: "Modernist" system) */
+@keyframes cdRise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cdWiden {
+  from {
+    opacity: 0;
+    letter-spacing: 0.52em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.22em;
+  }
+}
+
+@keyframes cdWipe {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes cdGlow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate3d(-3%, 4%, 0) scale(1.12);
+    opacity: 1;
+  }
+}
+
+@keyframes cdPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.animate-cd-rise {
+  animation: cdRise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.animate-cd-widen {
+  animation: cdWiden 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.animate-cd-wipe {
+  animation: cdWipe 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.animate-cd-glow {
+  animation: cdGlow 16s ease-in-out infinite;
+}
+.animate-cd-pulse {
+  animation: cdPulse 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-cd-rise,
+  .animate-cd-widen,
+  .animate-cd-wipe,
+  .animate-cd-glow,
+  .animate-cd-pulse {
+    animation: none;
+  }
+}
+
+.cd-focus-ring:focus-visible {
+  outline: 2px solid var(--cd-accent);
+  outline-offset: 2px;
 }

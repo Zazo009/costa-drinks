@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { Fraunces } from 'next/font/google';
+import { Fraunces, Instrument_Serif, Archivo } from 'next/font/google';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -23,6 +23,18 @@ const fraunces = Fraunces({
   variable: '--font-fraunces',
   weight: ['500', '600', '700'],
   style: ['normal', 'italic'],
+});
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  variable: '--font-instrument-serif',
+  weight: '400',
+  style: ['normal', 'italic'],
+  preload: true,
+});
+const archivo = Archivo({
+  subsets: ['latin'],
+  variable: '--font-archivo',
+  weight: ['400', '500', '600'],
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://costa-drinks.vercel.app';
@@ -111,7 +123,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={dir}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} ${instrumentSerif.variable} ${archivo.variable} antialiased`}
       >
         <script
           type="application/ld+json"

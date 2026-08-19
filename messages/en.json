@@ -23,15 +23,21 @@
     "closedBody": "Home delivery of alcohol is not permitted between 22:00 and 08:00 (Ley 4/1997, Andalucía). Please try again in the morning."
   },
   "hero": {
-    "title": "The last light of day, delivered to your door.",
+    "title": "The last light of day, at your door in 60 minutes.",
     "titleLine1": "The last light of day,",
-    "titleLine2": "delivered to your door.",
+    "titleLine2": "at your door in 60 minutes.",
     "subtitle": "Marbella · Estepona · Benahavís",
     "cta": "Order now",
+    "ctaSecondary": "Browse the full catalogue",
     "ctaDisabled": "Orders closed",
     "badgeDelivery": "Same-day delivery",
     "badgeLegal": "100% legally compliant",
-    "badgeSelection": "Wine, beer & spirits"
+    "badgeSelection": "Wine, beer & spirits",
+    "claimWeekly": "This week's pick · Manzanilla · Verdejo · Vermouth",
+    "statusOpenLabel": "Open for orders",
+    "statusOpenDetail": "Closes at 22:00 — legal delivery window in Andalucía 08:00–22:00",
+    "statusClosedLabel": "Closed now",
+    "statusClosedDetail": "Opens at 08:00 — legal delivery window in Andalucía 08:00–22:00"
   },
   "products": {
     "title": "Shop",

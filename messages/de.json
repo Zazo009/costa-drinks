@@ -23,15 +23,21 @@
     "closedBody": "Die Lieferung von Alkohol nach Hause ist zwischen 22:00 und 08:00 Uhr nicht erlaubt (Ley 4/1997, Andalusien). Bitte versuchen Sie es morgens erneut."
   },
   "hero": {
-    "title": "Das letzte Licht des Tages, direkt an Ihre Tür geliefert.",
+    "title": "Das letzte Licht des Tages, in 60 Minuten an Ihrer Tür.",
     "titleLine1": "Das letzte Licht des Tages,",
-    "titleLine2": "direkt an Ihre Tür geliefert.",
+    "titleLine2": "in 60 Minuten an Ihrer Tür.",
     "subtitle": "Marbella · Estepona · Benahavís",
     "cta": "Jetzt bestellen",
+    "ctaSecondary": "Gesamten Katalog ansehen",
     "ctaDisabled": "Bestellungen geschlossen",
     "badgeDelivery": "Lieferung am selben Tag",
     "badgeLegal": "100 % gesetzeskonform",
-    "badgeSelection": "Wein, Bier & Spirituosen"
+    "badgeSelection": "Wein, Bier & Spirituosen",
+    "claimWeekly": "Auswahl der Woche · Manzanilla · Verdejo · Wermut",
+    "statusOpenLabel": "Geöffnet für Bestellungen",
+    "statusOpenDetail": "Schließt um 22:00 — gesetzliches Lieferfenster in Andalusien 08:00–22:00",
+    "statusClosedLabel": "Gerade geschlossen",
+    "statusClosedDetail": "Öffnet um 08:00 — gesetzliches Lieferfenster in Andalusien 08:00–22:00"
   },
   "products": {
     "title": "Shop",
