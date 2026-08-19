@@ -117,3 +117,70 @@ html.age-ok [data-age-gate] {
     animation: none;
   }
 }
+
+/* Living Marbella-sunset backdrop: slow-drifting warm color blobs
+   over a dusk gradient, in place of a flat dark background. */
+.hero-lifestyle-bg {
+  background: linear-gradient(155deg, #3a1f3d 0%, #241531 42%, #14101f 78%, #0e0c16 100%);
+}
+
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+@keyframes driftA {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(4%, 6%) scale(1.08);
+  }
+  66% {
+    transform: translate(-3%, 3%) scale(0.96);
+  }
+}
+
+@keyframes driftB {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(-6%, -4%) scale(1.1);
+  }
+  75% {
+    transform: translate(3%, -5%) scale(0.94);
+  }
+}
+
+@keyframes driftC {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(5%, -6%) scale(1.06);
+  }
+}
+
+.animate-drift-a {
+  animation: driftA 22s ease-in-out infinite;
+}
+.animate-drift-b {
+  animation: driftB 27s ease-in-out infinite;
+}
+.animate-drift-c {
+  animation: driftC 19s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift-a,
+  .animate-drift-b,
+  .animate-drift-c {
+    animation: none;
+  }
+}

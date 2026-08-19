@@ -29,15 +29,32 @@ export default async function Home() {
       <AgeGate />
       <SiteHeader />
 
-      <section className="relative overflow-hidden bg-ink">
-        {/* sun disc, dusk glow */}
+      <section className="hero-lifestyle-bg relative overflow-hidden">
+        {/* living Marbella-sunset backdrop: slow-drifting warm blobs */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full sm:-right-16 sm:-top-32 sm:h-[520px] sm:w-[520px]"
-          style={{
-            background:
-              'radial-gradient(circle at 50% 50%, rgba(224,180,106,0.55) 0%, rgba(169,126,63,0.32) 42%, rgba(169,126,63,0) 72%)',
-          }}
+          className="hero-blob animate-drift-a -right-20 -top-32 h-[520px] w-[520px]"
+          style={{ background: 'radial-gradient(circle, rgba(255,138,92,0.55) 0%, rgba(255,138,92,0) 70%)' }}
+        />
+        <div
+          aria-hidden
+          className="hero-blob animate-drift-b right-10 top-24 h-[420px] w-[420px]"
+          style={{ background: 'radial-gradient(circle, rgba(224,83,138,0.42) 0%, rgba(224,83,138,0) 70%)' }}
+        />
+        <div
+          aria-hidden
+          className="hero-blob animate-drift-c right-1/3 bottom-0 h-[460px] w-[460px]"
+          style={{ background: 'radial-gradient(circle, rgba(224,180,106,0.4) 0%, rgba(224,180,106,0) 70%)' }}
+        />
+        <div
+          aria-hidden
+          className="hero-blob animate-drift-b -left-10 bottom-[-10%] h-[380px] w-[380px]"
+          style={{ background: 'radial-gradient(circle, rgba(31,111,120,0.4) 0%, rgba(31,111,120,0) 70%)' }}
+        />
+        {/* scrim so headline/CTA stay legible over the moving colour */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#14101f] via-[#14101f]/70 to-transparent"
         />
         {/* horizon line */}
         <div
