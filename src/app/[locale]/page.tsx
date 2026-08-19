@@ -60,17 +60,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           }}
         />
 
-        {/* decorative apricot bloom */}
-        <div
-          aria-hidden
-          className="animate-cd-glow pointer-events-none absolute z-[1]"
-          style={{
-            inset: 'auto -30% -40% -50%',
-            height: '80%',
-            background: 'radial-gradient(circle at 50% 50%, rgba(233,168,106,.26), rgba(11,26,23,0) 62%)',
-          }}
-        />
-
         {/* content column (z-2) */}
         <div
           className="font-cd-body relative z-[2] flex w-full flex-col justify-center"
