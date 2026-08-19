@@ -78,3 +78,42 @@ html.age-ok [data-age-gate] {
     animation: none;
   }
 }
+
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-72px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes liquidSway {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(1.5px);
+  }
+}
+
+.animate-bubble {
+  animation: bubbleRise 3.2s ease-in infinite;
+}
+
+.animate-liquid {
+  animation: liquidSway 4.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-bubble,
+  .animate-liquid {
+    animation: none;
+  }
+}
