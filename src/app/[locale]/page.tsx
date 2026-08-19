@@ -106,6 +106,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </span>
             </h1>
 
+            <div
+              className="animate-cd-wipe h-[2px] w-full bg-[#e9a86a]"
+              style={{ transformOrigin: 'left', animationDelay: '420ms' }}
+            />
+
             <div className="animate-cd-rise" style={{ animationDelay: '500ms' }}>
               <HeroStatus />
             </div>
