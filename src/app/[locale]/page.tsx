@@ -47,14 +47,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           className="pointer-events-none absolute inset-0 z-[1]"
           style={{
             background:
-              'linear-gradient(100deg, rgba(11,26,23,.95) 0%, rgba(11,26,23,.86) 34%, rgba(11,26,23,.4) 62%, rgba(11,26,23,.05) 88%)',
+              'linear-gradient(100deg, rgba(11,26,23,.95) 0%, rgba(11,26,23,.91) 10%, rgba(11,26,23,.84) 20%, rgba(11,26,23,.74) 30%, rgba(11,26,23,.6) 40%, rgba(11,26,23,.46) 50%, rgba(11,26,23,.33) 60%, rgba(11,26,23,.22) 70%, rgba(11,26,23,.12) 80%, rgba(11,26,23,.05) 90%, rgba(11,26,23,0) 100%)',
             transform: isRtl ? 'scaleX(-1)' : undefined,
           }}
         />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 z-[1]"
-          style={{ background: 'linear-gradient(to top, rgba(11,26,23,.72), rgba(11,26,23,0) 45%)' }}
+          style={{
+            background:
+              'linear-gradient(to top, rgba(11,26,23,.72) 0%, rgba(11,26,23,.6) 12%, rgba(11,26,23,.46) 24%, rgba(11,26,23,.32) 36%, rgba(11,26,23,.2) 48%, rgba(11,26,23,.11) 60%, rgba(11,26,23,.04) 72%, rgba(11,26,23,0) 84%)',
+          }}
         />
 
         {/* decorative apricot bloom */}
@@ -104,8 +107,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </h1>
 
             <div
-              className="animate-cd-wipe h-[2px] w-full bg-[#e9a86a]"
-              style={{ transformOrigin: 'left', animationDelay: '420ms' }}
+              className="animate-cd-wipe h-[2px] w-full"
+              style={{
+                transformOrigin: 'left',
+                animationDelay: '420ms',
+                background:
+                  'linear-gradient(to right, transparent 0%, #e9a86a 12%, #e9a86a 88%, transparent 100%)',
+              }}
             />
 
             <div className="animate-cd-rise" style={{ animationDelay: '500ms' }}>
