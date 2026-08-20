@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Loader2, ShieldCheck, MapPin } from 'lucide-react';
 import SiteHeader from '@/components/SiteHeader';
+import DeliveryCalendar from '@/components/DeliveryCalendar';
 import { useCartStore } from '@/lib/cart-store';
 import { products, formatPrice } from '@/data/products';
 import { createClient } from '@/lib/supabase-browser';
@@ -334,22 +335,19 @@ export default function CheckoutPage() {
                     <p className="mb-2 text-xs font-medium uppercase tracking-wide text-ink/40">
                       {t('deliveryDate')}
                     </p>
-                    <div className="mb-4 flex flex-wrap gap-2">
-                      {dates.map((d) => (
-                        <button
-                          key={d}
-                          type="button"
-                          onClick={() => selectDate(d)}
-                          className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-                            dateKey === d
-                              ? 'bg-ink text-white'
-                              : 'bg-ink/5 text-ink/60 hover:bg-ink/10'
-                          }`}
-                        >
-                          {deliveryDateLabel(d)}
-                        </button>
-                      ))}
+                    <div className="mb-2">
+                      <DeliveryCalendar
+                        dates={dates}
+                        value={dateKey}
+                        onChange={selectDate}
+                        locale={locale}
+                      />
                     </div>
+                    {dateKey && (
+                      <p className="mb-3 text-sm font-medium text-ink/70">
+                        {deliveryDateLabel(dateKey)}
+                      </p>
+                    )}
                     <div className="flex flex-wrap gap-2">
                       {slots.map((s) => (
                         <button
