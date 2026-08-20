@@ -39,7 +39,7 @@ export default function HeroCta({ initialOpen }: { initialOpen: boolean }) {
       className="cd-focus-ring inline-flex items-center gap-3.5 bg-[#f7f3ea] px-[26px] py-[18px] text-[16px] font-semibold tracking-[.01em] text-[#0b1a17] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e9a86a]"
     >
       {t('cta')}
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" className="rtl:rotate-180">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="rtl:rotate-180">
         <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
       </svg>
     </Link>
