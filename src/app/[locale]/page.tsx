@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import { preload } from 'react-dom';
 import AgeGate from '@/components/AgeGate';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
@@ -10,6 +11,15 @@ import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
 import { RTL_LOCALES } from '@/i18n/routing';
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  // The hero poster is the LCP element — start fetching it from the <head>,
+  // before the parser reaches the <img> deep in the body.
+  preload('/hero-poster.jpg', {
+    as: 'image',
+    fetchPriority: 'high',
+    imageSrcSet: '/hero-poster-mobile.jpg 828w, /hero-poster.jpg 1600w',
+    imageSizes: '100vw',
+  });
+
   const { locale } = await params;
   const isRtl = RTL_LOCALES.includes(locale);
   const t = await getTranslations();

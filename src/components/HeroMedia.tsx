@@ -29,9 +29,15 @@ export default function HeroMedia() {
     <div aria-hidden className="absolute inset-0 z-0 overflow-hidden">
       <img
         src="/hero-poster.jpg"
+        srcSet="/hero-poster-mobile.jpg 828w, /hero-poster.jpg 1600w"
+        sizes="100vw"
         alt=""
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
         style={{ filter: FILTER }}
+        // LCP element — tell the browser to fetch it first. Lowercase attr
+        // because React 18 doesn't know the camelCase prop yet.
+        {...({ fetchpriority: 'high' } as Record<string, string>)}
       />
       {showVideo && (
         <video
