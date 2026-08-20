@@ -14,7 +14,7 @@ import { isRateLimited, getClientIp } from '@/lib/rate-limit';
 import { sendOrderEmails } from '@/lib/email';
 
 const checkoutSchema = z.object({
-  locale: z.enum(['en', 'es']),
+  locale: z.enum(['en', 'es', 'fr', 'de', 'ar']),
   items: z
     .array(
       z.object({
@@ -78,7 +78,9 @@ export async function POST(req: NextRequest) {
   if (!town) {
     return NextResponse.json({ error: 'out_of_zone' }, { status: 400 });
   }
-  const cityName = town.name[locale];
+  // Product and town names only exist in es/en — other locales read English.
+  const contentLocale: 'es' | 'en' = locale === 'es' ? 'es' : 'en';
+  const cityName = town.name[contentLocale];
   const distanceKm = Math.abs(town.offsetKm);
 
   const products = await getLiveProducts();
@@ -182,7 +184,7 @@ export async function POST(req: NextRequest) {
         currency: 'eur',
         unit_amount: product.priceCents,
         product_data: {
-          name: locale === 'es' ? product.name.es : product.name.en,
+          name: product.name[contentLocale],
         },
       },
     };
@@ -207,6 +209,9 @@ export async function POST(req: NextRequest) {
     mode: 'payment',
     line_items: lineItems,
     customer_email: customer.email,
+    // Pin the hosted payment page to the site's language instead of letting
+    // Stripe auto-detect from the browser (Arabic isn't supported → English).
+    locale: locale === 'ar' ? 'en' : locale,
     success_url: `${origin}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/${locale}/checkout/cancel`,
     metadata: {
