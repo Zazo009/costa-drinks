@@ -53,6 +53,8 @@ export default function CheckoutPage() {
   const locale = useLocale();
   const items = useCartStore((s) => s.items);
 
+  const [dates, setDates] = useState<string[]>([]);
+  const [dateKey, setDateKey] = useState('');
   const [slots, setSlots] = useState<DeliverySlot[]>([]);
   const [slotId, setSlotId] = useState('');
   const [name, setName] = useState('');
@@ -73,6 +75,8 @@ export default function CheckoutPage() {
     fetch('/api/delivery-slots')
       .then((r) => r.json())
       .then((data) => {
+        setDates(data.dates ?? []);
+        if (data.dates?.length > 0) setDateKey(data.dates[0]);
         setSlots(data.slots);
         if (data.slots.length > 0) setSlotId(data.slots[0].id);
       });
@@ -99,6 +103,36 @@ export default function CheckoutPage() {
         }
       });
   }, []);
+
+  const todayKey = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid' }).format(
+    new Date()
+  );
+  const tomorrowKey = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid' }).format(
+    new Date(Date.now() + 24 * 60 * 60 * 1000)
+  );
+
+  function deliveryDateLabel(key: string): string {
+    if (key === todayKey) return t('today');
+    if (key === tomorrowKey) return t('tomorrow');
+    // Noon UTC keeps the formatted day stable regardless of viewer timezone.
+    return new Intl.DateTimeFormat(locale, {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      timeZone: 'UTC',
+    }).format(new Date(`${key}T12:00:00Z`));
+  }
+
+  function selectDate(key: string) {
+    setDateKey(key);
+    setSlotId('');
+    fetch(`/api/delivery-slots?date=${key}`)
+      .then((r) => r.json())
+      .then((data) => {
+        setSlots(data.slots);
+        if (data.slots.length > 0) setSlotId(data.slots[0].id);
+      });
+  }
 
   function applyAddress(a: SavedAddress) {
     setSelectedAddressId(a.id);
@@ -145,6 +179,11 @@ export default function CheckoutPage() {
     setSubmitting(true);
     try {
       const slot = slots.find((s) => s.id === slotId);
+      // Ops/emails read this label — prefix the date for scheduled orders.
+      const slotLabel =
+        dateKey && dateKey !== todayKey
+          ? `${dateKey.slice(8, 10)}/${dateKey.slice(5, 7)} · ${slot?.label ?? ''}`
+          : (slot?.label ?? '');
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -157,7 +196,7 @@ export default function CheckoutPage() {
             zoneId,
             postcode,
             slotId,
-            slotLabel: slot?.label ?? '',
+            slotLabel,
           },
           ageConfirmed: true,
           paymentMethod,
@@ -286,27 +325,48 @@ export default function CheckoutPage() {
               <div className="pt-2">
                 <p className="mb-2 text-sm text-ink/70">{t('slot')}</p>
                 <p className="mb-3 text-xs text-ink/50">{t('slotHelp')}</p>
-                {slots.length === 0 ? (
+                {dates.length === 0 ? (
                   <p className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-900">
                     {t('noSlots')}
                   </p>
                 ) : (
-                  <div className="flex flex-wrap gap-2">
-                    {slots.map((s) => (
-                      <button
-                        key={s.id}
-                        type="button"
-                        onClick={() => setSlotId(s.id)}
-                        className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-                          slotId === s.id
-                            ? 'bg-ink text-white'
-                            : 'bg-ink/5 text-ink/60 hover:bg-ink/10'
-                        }`}
-                      >
-                        {s.label}
-                      </button>
-                    ))}
-                  </div>
+                  <>
+                    <p className="mb-2 text-xs font-medium uppercase tracking-wide text-ink/40">
+                      {t('deliveryDate')}
+                    </p>
+                    <div className="mb-4 flex flex-wrap gap-2">
+                      {dates.map((d) => (
+                        <button
+                          key={d}
+                          type="button"
+                          onClick={() => selectDate(d)}
+                          className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                            dateKey === d
+                              ? 'bg-ink text-white'
+                              : 'bg-ink/5 text-ink/60 hover:bg-ink/10'
+                          }`}
+                        >
+                          {deliveryDateLabel(d)}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {slots.map((s) => (
+                        <button
+                          key={s.id}
+                          type="button"
+                          onClick={() => setSlotId(s.id)}
+                          className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                            slotId === s.id
+                              ? 'bg-ink text-white'
+                              : 'bg-ink/5 text-ink/60 hover:bg-ink/10'
+                          }`}
+                        >
+                          {s.label}
+                        </button>
+                      ))}
+                    </div>
+                  </>
                 )}
               </div>
             </div>
