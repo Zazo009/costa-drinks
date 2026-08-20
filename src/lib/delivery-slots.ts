@@ -10,7 +10,7 @@ export type DeliverySlot = {
 const MIN_LEAD_MINUTES = 45;
 
 /** How many days ahead an order can be scheduled (0 = same-day only). */
-export const MAX_ADVANCE_DAYS = 7;
+export const MAX_ADVANCE_DAYS = 30;
 
 function madridParts(now: Date) {
   const fmt = new Intl.DateTimeFormat('en-GB', {

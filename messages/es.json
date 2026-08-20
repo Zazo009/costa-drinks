@@ -88,7 +88,7 @@
     "city": "Ciudad",
     "postcode": "Código postal",
     "slot": "Hora de entrega",
-    "slotHelp": "Entrega entre las 08:00 y las 22:00, según lo permitido por ley. Puedes programar tu pedido con hasta 7 días de antelación — ideal para eventos.",
+    "slotHelp": "Entrega entre las 08:00 y las 22:00, según lo permitido por ley. Puedes programar tu pedido con hasta 30 días de antelación — ideal para eventos.",
     "deliveryDate": "Día de entrega",
     "today": "Hoy",
     "tomorrow": "Mañana",

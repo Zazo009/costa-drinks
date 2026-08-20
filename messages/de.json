@@ -88,7 +88,7 @@
     "city": "Stadt",
     "postcode": "Postleitzahl",
     "slot": "Lieferzeit",
-    "slotHelp": "Lieferung zwischen 08:00 und 22:00 Uhr, wie gesetzlich erlaubt. Sie können Ihre Bestellung bis zu 7 Tage im Voraus planen — ideal für Events.",
+    "slotHelp": "Lieferung zwischen 08:00 und 22:00 Uhr, wie gesetzlich erlaubt. Sie können Ihre Bestellung bis zu 30 Tage im Voraus planen — ideal für Events.",
     "deliveryDate": "Liefertag",
     "today": "Heute",
     "tomorrow": "Morgen",

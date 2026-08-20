@@ -88,7 +88,7 @@
     "city": "Ville",
     "postcode": "Code postal",
     "slot": "Heure de livraison",
-    "slotHelp": "Livraison entre 08h00 et 22h00, comme le permet la loi. Vous pouvez programmer votre commande jusqu'à 7 jours à l'avance — idéal pour les événements.",
+    "slotHelp": "Livraison entre 08h00 et 22h00, comme le permet la loi. Vous pouvez programmer votre commande jusqu'à 30 jours à l'avance — idéal pour les événements.",
     "deliveryDate": "Jour de livraison",
     "today": "Aujourd'hui",
     "tomorrow": "Demain",
