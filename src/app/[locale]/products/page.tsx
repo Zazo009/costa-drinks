@@ -5,6 +5,7 @@ import SiteHeader from '@/components/SiteHeader';
 import SaleWindowBanner from '@/components/SaleWindowBanner';
 import ProductGrid from '@/components/ProductGrid';
 import SiteFooter from '@/components/SiteFooter';
+import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
 
 export default async function ProductsPage() {
   const t = await getTranslations('products');
@@ -21,7 +22,7 @@ export default async function ProductsPage() {
         <p className="mt-2 text-sm text-ink/50">{t('subtitle')}</p>
 
         <div className="my-6 max-w-md">
-          <SaleWindowBanner />
+          <SaleWindowBanner initialOpen={isAlcoholSaleWindowOpen()} />
         </div>
 
         <Suspense>

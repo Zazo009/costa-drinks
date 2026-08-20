@@ -4,6 +4,7 @@ import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import HeroStatus from '@/components/HeroStatus';
 import HeroMedia from '@/components/HeroMedia';
+import HeroCta from '@/components/HeroCta';
 import { Link } from '@/i18n/navigation';
 import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
 import { RTL_LOCALES } from '@/i18n/routing';
@@ -108,24 +109,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               className="animate-cd-rise flex flex-wrap items-center gap-5"
               style={{ animationDelay: '600ms' }}
             >
-              {open ? (
-                <Link
-                  href="/products"
-                  className="cd-focus-ring inline-flex items-center gap-3.5 bg-[#f7f3ea] px-[26px] py-[18px] text-[16px] font-semibold tracking-[.01em] text-[#0b1a17] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#e9a86a]"
-                >
-                  {t('hero.cta')}
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" className="rtl:rotate-180">
-                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
-                  </svg>
-                </Link>
-              ) : (
-                <button
-                  disabled
-                  className="inline-flex cursor-not-allowed items-center gap-3.5 bg-[#f7f3ea]/20 px-[26px] py-[18px] text-[16px] font-semibold tracking-[.01em] text-[#f7f3ea]/50"
-                >
-                  {t('hero.ctaDisabled')}
-                </button>
-              )}
+              <HeroCta initialOpen={open} />
               <Link
                 href="/products"
                 className="cd-focus-ring border-b-2 pb-[3px] text-[15px] text-[#e9a86a] transition-colors hover:text-[#f0dcb4]"

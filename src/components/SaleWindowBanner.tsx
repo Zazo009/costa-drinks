@@ -1,10 +1,27 @@
-import { getTranslations } from 'next-intl/server';
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Clock, CheckCircle2 } from 'lucide-react';
 import { isAlcoholSaleWindowOpen } from '@/lib/sale-window';
 
-export default async function SaleWindowBanner() {
-  const t = await getTranslations('saleWindow');
-  const open = isAlcoholSaleWindowOpen();
+/**
+ * Client component: the pages that render this are SSG, so a server-side
+ * check would bake the open/closed state in at build time and go stale.
+ * `initialOpen` is the build-time value (keeps hydration consistent);
+ * the effect corrects it immediately and keeps it fresh while open.
+ */
+export default function SaleWindowBanner({ initialOpen = false }: { initialOpen?: boolean }) {
+  const t = useTranslations('saleWindow');
+  const [open, setOpen] = useState(initialOpen);
+
+  useEffect(() => {
+    const sync = () => setOpen(isAlcoholSaleWindowOpen());
+    sync();
+    const id = setInterval(sync, 30_000);
+    return () => clearInterval(id);
+  }, []);
+
   const Icon = open ? CheckCircle2 : Clock;
 
   return (
